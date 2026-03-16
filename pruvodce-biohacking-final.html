@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biohacking & Longevity | Bc. Veronika Topičová, MBA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dark:#2d5239; --dark2:#3a6b4a; --dark3:#2d5239;
+  --navy:#3a6b4a; --blue:#4d7e5c; --teal:#3a6b4a;
+  --cream:#f7f5f0; --cream2:#eef2ec; --white:#ffffff;
+  --gold:#c9a165; --gold-lt:#e2c08a; --gold-dk:#8a6830;
+  --green:#3a6b4a; --green-lt:#4d7e5c;
+  --text:#2c2c2a; --text2:#4a4845; --text3:#7a7570;
+  --fd:'Cormorant Garamond',serif; --fb:'Plus Jakarta Sans',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#ffffff;color:var(--text);font-family:var(--fb);line-height:1.7}
+.page{max-width:800px;margin:0 auto;background:#fff;box-shadow:0 4px 40px rgba(10,22,40,.1)}
+
+.print-bar{background:var(--dark);color:var(--cream);padding:12px 32px;display:flex;align-items:center;justify-content:space-between;font-size:13px}
+.print-bar span{color:rgba(240,244,248,.6)}
+.btn-print{background:var(--gold);color:var(--dark);border:none;font-size:13px;font-weight:600;padding:8px 20px;border-radius:5px;cursor:pointer;font-family:var(--fb);transition:all .2s}
+.btn-print:hover{background:var(--gold-lt)}
+
+/* COVER */
+.cover{background:linear-gradient(155deg,var(--dark) 0%,var(--dark2) 45%,var(--dark3) 100%);padding:72px 64px 60px;position:relative;overflow:hidden;min-height:440px;display:flex;flex-direction:column;justify-content:flex-end}
+.cover-orb1{position:absolute;right:-80px;top:-80px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,168,.15) 0%,transparent 60%)}
+.cover-orb2{position:absolute;left:-60px;bottom:-60px;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(13,122,107,.1) 0%,transparent 65%)}
+.cover-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+.cover-badge{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-lt);background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);padding:5px 14px;border-radius:3px;display:inline-block;margin-bottom:20px;font-family:var(--fb)}
+.cover h1{font-family:var(--fd);font-size:54px;font-weight:700;color:#fff;line-height:1.03;letter-spacing:-.01em;margin-bottom:14px}
+.cover h1 em{font-style:italic;color:var(--gold-lt)}
+.cover h1 .accent{color:rgba(255,255,255,.55);font-weight:400}
+.cover-sub{font-size:16px;color:rgba(240,244,248,.6);max-width:520px;line-height:1.72;margin-bottom:32px;font-family:var(--fb)}
+.cover-author{display:flex;align-items:center;gap:14px;border-top:1px solid rgba(255,255,255,.1);padding-top:24px}
+.author-av{width:48px;height:48px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:20px;color:var(--gold-lt)}
+.author-name{font-family:var(--fd);font-size:17px;font-weight:600;color:#fff}
+.author-title{font-size:11px;color:rgba(240,244,248,.45);letter-spacing:.06em;font-family:var(--fb)}
+
+/* TOC */
+.toc{padding:48px 64px;background:var(--cream);border-bottom:1px solid rgba(10,22,40,.08)}
+.toc-title{font-family:var(--fd);font-size:28px;font-weight:600;color:var(--dark);margin-bottom:24px}
+.toc-item{display:flex;align-items:baseline;gap:8px;padding:9px 0;border-bottom:1px solid rgba(10,22,40,.06)}
+.toc-item:last-child{border:none}
+.toc-num{font-family:var(--fb);font-size:11px;color:var(--blue);font-weight:600;min-width:28px;letter-spacing:.04em}
+.toc-name{font-family:var(--fd);font-size:17px;color:var(--text);flex:1}
+.toc-dots{flex:1;border-bottom:1px dotted rgba(10,22,40,.2);margin:0 8px 4px}
+.toc-pg{font-family:var(--fb);font-size:12px;color:var(--text3)}
+
+/* CHAPTERS */
+.chapter{padding:56px 64px;border-bottom:1px solid rgba(10,22,40,.07)}
+.chapter:last-child{border:none}
+.ch-num{font-family:var(--fb);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:8px}
+.ch-title{font-family:var(--fd);font-size:38px;font-weight:700;color:var(--dark);line-height:1.1;letter-spacing:-.01em;margin-bottom:10px}
+.ch-lead{font-size:17px;color:var(--text2);line-height:1.78;max-width:620px;font-style:italic;font-family:var(--fd);margin-bottom:32px}
+
+h2{font-family:var(--fd);font-size:26px;font-weight:600;color:var(--dark);margin:32px 0 14px;line-height:1.2}
+h3{font-family:var(--fd);font-size:20px;font-weight:600;color:var(--navy);margin:24px 0 10px}
+p{font-size:15px;color:var(--text2);line-height:1.82;margin-bottom:16px}
+strong{color:var(--text);font-weight:600}
+
+.hl-box{border-radius:12px;padding:20px 24px;margin:24px 0}
+.hl-blue{background:rgba(37,99,168,.06);border-left:3px solid var(--blue)}
+.hl-teal{background:rgba(13,122,107,.06);border-left:3px solid var(--teal)}
+.hl-gold{background:rgba(201,168,76,.07);border-left:3px solid var(--gold)}
+.hl-green{background:rgba(45,110,78,.06);border-left:3px solid var(--green)}
+.hl-box .title{font-family:var(--fd);font-size:16px;font-weight:600;color:var(--dark);margin-bottom:8px}
+.hl-box p{margin:0;font-size:14px;line-height:1.72}
+
+ul.custom,ol.custom{margin:12px 0 16px;padding:0;list-style:none}
+ul.custom li,ol.custom li{padding:6px 0 6px 24px;position:relative;font-size:15px;color:var(--text2);line-height:1.72;border-bottom:1px solid rgba(10,22,40,.05)}
+ul.custom li:last-child,ol.custom li:last-child{border:none}
+ul.custom li::before{content:'';width:6px;height:6px;background:var(--teal);border-radius:50%;position:absolute;left:4px;top:13px}
+ol.custom{counter-reset:li}
+ol.custom li::before{content:counter(li);counter-increment:li;position:absolute;left:0;top:6px;font-family:var(--fb);font-size:11px;font-weight:600;color:var(--blue);background:rgba(37,99,168,.1);width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;line-height:18px;text-align:center}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0}
+.card{background:var(--cream);border:1px solid rgba(10,22,40,.1);border-radius:10px;padding:18px}
+.card-icon{font-size:24px;margin-bottom:10px}
+.card h4{font-family:var(--fd);font-size:16px;font-weight:600;color:var(--dark);margin-bottom:6px}
+.card p{font-size:13px;color:var(--text2);line-height:1.65;margin:0}
+
+table.data{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}
+table.data th{background:var(--dark);color:#fff;padding:10px 14px;text-align:left;font-family:var(--fb);font-size:12px;font-weight:500;letter-spacing:.04em}
+table.data td{padding:10px 14px;border-bottom:1px solid rgba(10,22,40,.08);color:var(--text2);vertical-align:top}
+table.data tr:nth-child(even) td{background:rgba(10,22,40,.02)}
+
+/* DARK PILLAR */
+.pillar{background:var(--dark);border-radius:14px;padding:28px;margin:20px 0;color:#fff;position:relative;overflow:hidden}
+.pillar::before{content:'';position:absolute;right:-30px;top:-30px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,168,.2) 0%,transparent 65%)}
+.pillar h3{font-family:var(--fd);font-size:22px;font-weight:600;color:var(--gold-lt);margin-bottom:10px;position:relative}
+.pillar p{font-size:14px;color:rgba(240,244,248,.72);line-height:1.72;margin-bottom:12px;position:relative}
+.pillar p:last-child{margin:0}
+.pillar strong{color:#fff}
+
+/* HALLMARKS */
+.hallmarks{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:20px 0}
+.hallmark{background:var(--cream2);border:1px solid rgba(10,22,40,.1);border-radius:10px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px}
+.hall-num{font-family:var(--fb);font-size:11px;font-weight:600;color:var(--blue);background:rgba(37,99,168,.1);padding:3px 8px;border-radius:4px;white-space:nowrap;margin-top:1px}
+.hall-text h5{font-size:14px;font-weight:600;color:var(--dark);margin-bottom:3px}
+.hall-text p{font-size:12px;color:var(--text3);margin:0;line-height:1.6}
+
+/* PROTOCOL BLOCK */
+.protocol{border:1px solid rgba(10,22,40,.1);border-radius:12px;overflow:hidden;margin:20px 0}
+.protocol-hd{background:var(--navy);padding:14px 20px;display:flex;align-items:center;gap:12px}
+.protocol-hd .pico{font-size:20px}
+.protocol-hd h4{font-family:var(--fd);font-size:17px;font-weight:600;color:#fff}
+.protocol-body{padding:16px 20px}
+.protocol-body p{font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:8px}
+.protocol-body p:last-child{margin:0}
+
+/* SCORE */
+.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0}
+.score-card{background:var(--dark);border-radius:10px;padding:18px;text-align:center}
+.score-card .val{font-family:var(--fd);font-size:36px;font-weight:700;color:var(--gold-lt);line-height:1}
+.score-card .lbl{font-size:11px;color:rgba(240,244,248,.5);text-transform:uppercase;letter-spacing:.08em;margin-top:5px}
+
+/* CHECKLIST */
+.checklist{background:var(--cream);border:1px solid rgba(10,22,40,.1);border-radius:12px;padding:22px 26px;margin:20px 0}
+.checklist h4{font-family:var(--fd);font-size:18px;font-weight:600;color:var(--dark);margin-bottom:14px}
+.check-item{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid rgba(10,22,40,.06);font-size:14px;color:var(--text2)}
+.check-item:last-child{border:none}
+.check-box{width:18px;height:18px;border:1.5px solid rgba(10,22,40,.25);border-radius:4px;flex-shrink:0;margin-top:1px}
+
+/* CTA */
+.cta{background:linear-gradient(135deg,var(--dark),var(--dark2));border-radius:16px;padding:40px;text-align:center;margin:40px 0 0;position:relative;overflow:hidden}
+.cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 600px 400px at 50% 100%,rgba(13,122,107,.12) 0%,transparent 60%)}
+.cta h3{font-family:var(--fd);font-size:28px;font-weight:700;color:#fff;margin-bottom:10px;position:relative}
+.cta p{font-size:15px;color:rgba(240,244,248,.65);line-height:1.72;margin-bottom:24px;position:relative}
+.btn-cta{display:inline-block;background:var(--gold);color:var(--dark);font-size:15px;font-weight:700;padding:14px 32px;border-radius:8px;text-decoration:none;font-family:var(--fb);position:relative}
+.cta-sub{font-size:12px;color:rgba(240,244,248,.4);margin-top:12px;position:relative}
+
+.doc-footer{background:var(--dark2);padding:24px 64px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:rgba(240,244,248,.35);font-family:var(--fb)}
+.doc-footer a{color:rgba(240,244,248,.5);text-decoration:none}
+
+@media print{
+  .print-bar{display:none}
+  body{background:#fff}
+  .page{box-shadow:none;max-width:100%}
+  .chapter{page-break-inside:avoid}
+  .cover{page-break-after:always}
+  .toc{page-break-after:always}
+}
+@media(max-width:700px){
+  .cover,.toc,.chapter{padding:32px 22px}
+  .cover h1{font-size:34px}
+  .ch-title{font-size:28px}
+  .grid-2,.grid-3,.hallmarks,.score-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="print-bar">
+  <span>Průvodce ke stažení · body-spirit.cz</span>
+  <button class="btn-print" onclick="window.print()">Uložit jako PDF / Tisk</button>
+</div>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-orb1"></div>
+  <div class="cover-orb2"></div>
+  <div class="cover-grid"></div>
+  <div class="cover-badge">Průvodce · Biohacking · Longevity · Celostní medicína</div>
+  <h1>Biohacking<br>&amp; <em>Longevity</em><br><span class="accent">pro každého z nás</span></h1>
+  <p class="cover-sub">Vědecky podložený průvodce optimalizací biologického věku, energie a výkonu. Jak využít přirozené mechanismy těla pro delší a kvalitnější život — bez extrémů, bez technologických hraček, s trvalými výsledky.</p>
+  <div class="cover-author">
+    <div class="author-av">VT</div>
+    <div>
+      <div class="author-name">Bc. Veronika Topičová, MBA</div>
+      <div class="author-title">CELOSTNÍ VÝŽIVOVÁ SPECIALISTKA · BIOHACKING & LONGEVITY KOUČKA · NATUROPATIE</div>
+    </div>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <div class="toc-title">Obsah průvodce</div>
+  <div class="toc-item"><span class="toc-num">01</span><span class="toc-name">Co je biohacking a longevity — mýty vs. realita</span><span class="toc-dots"></span><span class="toc-pg">3</span></div>
+  <div class="toc-item"><span class="toc-num">02</span><span class="toc-name">12 příčin stárnutí, které lze ovlivnit</span><span class="toc-dots"></span><span class="toc-pg">4</span></div>
+  <div class="toc-item"><span class="toc-num">03</span><span class="toc-name">Výživa jako základ longevity — celostní přístup</span><span class="toc-dots"></span><span class="toc-pg">5</span></div>
+  <div class="toc-item"><span class="toc-num">04</span><span class="toc-name">Spánek — nejsilnější biohacking nástroj</span><span class="toc-dots"></span><span class="toc-pg">7</span></div>
+  <div class="toc-item"><span class="toc-num">05</span><span class="toc-name">Pohyb a mitochondrie — energie na buněčné úrovni</span><span class="toc-dots"></span><span class="toc-pg">8</span></div>
+  <div class="toc-item"><span class="toc-num">06</span><span class="toc-name">Stres, adaptogeny a nervový systém</span><span class="toc-dots"></span><span class="toc-pg">9</span></div>
+  <div class="toc-item"><span class="toc-num">07</span><span class="toc-name">Biohackingové protokoly — 6 nejúčinnějších</span><span class="toc-dots"></span><span class="toc-pg">10</span></div>
+  <div class="toc-item"><span class="toc-num">08</span><span class="toc-name">Suplementace pro longevity — co věda říká</span><span class="toc-dots"></span><span class="toc-pg">11</span></div>
+  <div class="toc-item"><span class="toc-num">09</span><span class="toc-name">Diagnostika a měření biologického věku</span><span class="toc-dots"></span><span class="toc-pg">12</span></div>
+  <div class="toc-item"><span class="toc-num">10</span><span class="toc-name">Váš 30denní longevity startovací plán</span><span class="toc-dots"></span><span class="toc-pg">13</span></div>
+</div>
+
+<!-- CHAPTER 1 -->
+<div class="chapter">
+  <div class="ch-num">Kapitola 01</div>
+  <div class="ch-title">Co je biohacking a longevity — mýty vs. realita</div>
+  <div class="ch-lead">Biohacking není sci-fi, ani doména bohatých technologů. Je to vědomá, systematická práce s vlastní biologií za účelem maximalizace zdraví, výkonu a délky kvalitního života.</div>
+
+  <p>Slovo "biohacking" pochází ze spojení "biology" a "hacking" — ve smyslu přátelského "hackování" vlastního těla. Na rozdíl od mediálních obrazů, kde biohacker vypadá jako excentrický miliardář s implantáty, se skutečný biohacking odehrává v každodenních volbách: co jíte, kdy spíte, jak dýcháte, jak se pohybujete.</p>
+
+  <div class="hl-box hl-blue">
+    <div class="title">Longevity — co to vlastně znamená</div>
+    <p>Longevity není jen o délce života. Je to <strong>healthspan</strong> — počet let, kdy žijeme zdravě, aktivně a s plným výkonem. Cílem není žít do 120 let nemocní a závislí na péči, ale prodloužit aktivní, vitální fázi života co nejvíce.</p>
+  </div>
+
+  <h2>Co biohacking NENÍ</h2>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-icon">❌</div>
+      <h4>Extrémní experimenty</h4>
+      <p>Biohacking není o implantátech, výzkumných lécích nebo extrémních dietách. 95 % biohackingu je o základech: spánek, výživa, pohyb, stres.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">❌</div>
+      <h4>Rychlé řešení</h4>
+      <p>Biohacking není quick fix. Je to životní styl. Výsledky přicházejí postupně — první zlepšení za 2–4 týdny, hluboké změny za 3–6 měsíců systematické práce.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">❌</div>
+      <h4>Drahé technologie</h4>
+      <p>Nejúčinnější biohacking nástroje jsou zdarma: ranní sluneční světlo, studená sprcha, chůze v přírodě, dechové cvičení, dostatek spánku.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">❌</div>
+      <h4>Jen pro mladé a sportovce</h4>
+      <p>Biohacking je nejúčinnější od 35+ let, kdy tělo začíná reagovat na chronické zanedbávání. Čím dříve začnete, tím lepší výsledky — ale začít lze kdykoliv.</p>
+    </div>
+  </div>
+
+  <p>Z pohledu celostní medicíny a naturopatie je biohacking přirozené pokračování tisíciletých tradičních přístupů ke zdraví — jen s moderní vědeckou podporou. Ajurvéda, tradiční čínská medicína a evropská bylinkářská tradice praktikovala "biohacking" po staletí — jen to tak nenazývala.</p>
+</div>
+
+<!-- CHAPTER 2 -->
+<div class="chapter">
+  <div class="ch-num">Kapitola 02</div>
+  <div class="ch-title">12 příčin stárnutí, které lze ovlivnit</div>
+  <div class="ch-lead">Vědci identifikovali tzv. "hallmarks of aging" — biochemické procesy, které pohání biologické stárnutí. Mnohé z nich lze životním stylem výrazně zpomalit.</div>
+
+  <div class="hallmarks">
+    <div class="hallmark"><div class="hall-num">01</div><div class="hall-text"><h5>Genomická nestabilita</h5><p>Poškozování DNA. Ovlivnitelné antioxidanty, výživou a omezením toxinů.</p></div></div>
+    <div class="hallmark"><div class="hall-num">02</div><div class="hall-text"><h5>Zkracování telomer</h5><p>Konce chromozomů se zkracují. Spánek, omega-3 a pohyb telomery chrání.</p></div></div>
+    <div class="hallmark"><div class="hall-num">03</div><div class="hall-text"><h5>Epigenetické změny</h5><p>Změny exprese genů. Výživa, stres a pohyb přímo mění epigenom.</p></div></div>
+    <div class="hallmark"><div class="hall-num">04</div><div class="hall-text"><h5>Ztráta proteostázy</h5><p>Hromadění poškozených bílkovin. Podporuje autophagy — půst, cvičení.</p></div></div>
+    <div class="hallmark"><div class="hall-num">05</div><div class="hall-text"><h5>Narušená detekce živin</h5><p>mTOR, AMPK, IGF-1 osy. Přerušovaný půst a omezení cukrů jsou klíčové.</p></div></div>
+    <div class="hallmark"><div class="hall-num">06</div><div class="hall-text"><h5>Mitochondriální dysfunkce</h5><p>Pokles energetické produkce. CoQ10, pohyb, cold exposure a výživa.</p></div></div>
+    <div class="hallmark"><div class="hall-num">07</div><div class="hall-text"><h5>Buněčná senescence</h5><p>"Zombie buňky" způsobující zánět. Cvičení a senolitická výživa pomáhá.</p></div></div>
+    <div class="hallmark"><div class="hall-num">08</div><div class="hall-text"><h5>Vyčerpání kmenových buněk</h5><p>Pokles regenerace. Kvalitní spánek a intermittent fasting podporují kmenové buňky.</p></div></div>
+    <div class="hallmark"><div class="hall-num">09</div><div class="hall-text"><h5>Narušená buněčná komunikace</h5><p>Hormony, cytokiny. Redukce chronického zánětu je priorita.</p></div></div>
+    <div class="hallmark"><div class="hall-num">10</div><div class="hall-text"><h5>Chronický zánět</h5><p>"Inflammaging" — tichý zánět urychluje stárnutí. Omega-3, kurkumin, výživa.</p></div></div>
+    <div class="hallmark"><div class="hall-num">11</div><div class="hall-text"><h5>Dysbioza mikrobiomu</h5><p>Nerovnováha střevní flóry urychluje stárnutí. Fermentované potraviny, prebiotika.</p></div></div>
+    <div class="hallmark"><div class="hall-num">12</div><div class="hall-text"><h5>Mechanické změny tkání</h5><p>Pokles kolagenu, elasticity. Vitamin C, kolagen, pohyb, hydratace.</p></div></div>
+  </div>
+
+  <div class="hl-box hl-teal">
+    <div class="title">Klíčový závěr</div>
+    <p>Všech 12 hallmarks stárnutí je ovlivnitelných životním stylem. Věda ukazuje, že <strong>biologický věk se liší od kalendářního věku</strong> až o 20–30 let v závislosti na tom, jak žijete. Lidé ve stejném kalendářním věku mohou mít dramaticky různé biologické věky.</p>
+  </div>
+</div>
+
+<!-- CHAPTER 3 -->
+<div class="chapter">
+  <div class="ch-num">Kapitola 03</div>
+  <div class="ch-title">Výživa jako základ longevity — celostní přístup</div>
+  <div class="ch-lead">Žádná technologie, žádný supplement nedokáže nahradit špatnou výživu. Výživa je základ — každá buňka vašeho těla je doslova postavena z toho, co jíte.</div>
+
+  <h2>Longevity výživa — principy, ne diety</h2>
+  <p>Výzkum modrých zón (Blue Zones) — oblastí s nejvyšší koncentrací lidí nad 100 let — identifikoval společné stravovací vzorce. Nejsou to diety. Jsou to životní principy, které lze aplikovat v jakékoliv kultuře.</p>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-icon">🌱</div>
+      <h4>Rostliny jako základ</h4>
+      <p>80 % stravy z rostlinných zdrojů. Zelenina, luštěniny, celozrnné obiloviny, ořechy, semínka. Masové proteiny jako doplněk, ne základ.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🐟</div>
+      <h4>Omega-3 jako priorita</h4>
+      <p>Tučné ryby 3× týdně nebo kvalitní supplement. Omega-3 přímo ovlivňuje telomery, zánět a neurologické zdraví.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🫘</div>
+      <h4>Luštěniny denně</h4>
+      <p>Čočka, fazole, cizrna — nejlepší predikátor longevity ve všech modrých zónách. Vláknina, proteiny, nízký glykemický index.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🍷</div>
+      <h4>Polyfenoly z barevné stravy</h4>
+      <p>Borůvky, granátové jablko, tmavá čokoláda, olivový olej, červené víno (s mírou). Polyfenoly aktivují sirtuiny — longevity geny.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⏰</div>
+      <h4>Časové okno jídla</h4>
+      <p>Jíst v 8–10 hodinovém okně denně (např. 8:00–18:00). Noční půst aktivuje autophagy a opravy buněk.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧂</div>
+      <h4>Hara hachi bu</h4>
+      <p>Okinawský princip "jíst do 80 % sytosti". Kalorická restrikce bez hladovění — prokázaná longevity strategie.</p>
+    </div>
+  </div>
+
+  <h2>Zánětlivé vs. protizánětlivé potraviny</h2>
+  <table class="data">
+    <tr>
+      <th>Protizánětlivé (longevity potraviny)</th>
+      <th>Prozánětlivé (omezit / vyloučit)</th>
+    </tr>
+    <tr>
+      <td>Tučné ryby (losos, sardinky, sleď), lněné semínko, chia</td>
+      <td>Průmyslové rostlinné oleje (slunečnicový, sójový, řepkový)</td>
+    </tr>
+    <tr>
+      <td>Borůvky, třešně, granátové jablko, tmavé bobule</td>
+      <td>Cukr a rafinované sacharidy, sladké nápoje</td>
+    </tr>
+    <tr>
+      <td>Extra panenský olivový olej, avokádo</td>
+      <td>Trans-tuky (přepekaný tuk, fast food)</td>
+    </tr>
+    <tr>
+      <td>Kurkuma + pepř, zázvor, čerstvý česnek, cibule</td>
+      <td>Zpracované maso (uzeniny, hot dogs)</td>
+    </tr>
+    <tr>
+      <td>Tmavá listová zelenina (špenát, kapusta, rukola)</td>
+      <td>Alkohol nad 1 sklenici denně</td>
+    </tr>
+    <tr>
+      <td>Fermentované potraviny (kefír, kimchi, tempeh)</td>
+      <td>Ultra-zpracované potraviny (balené snacky, instantní jídla)</td>
+    </tr>
+  </table>
+
+  <div class="hl-box hl-gold">
+    <div class="title">Naturopatický pohled: Jídlo jako informace</div>
+    <p>Z pohledu naturopatie není jídlo jen "palivo". Je to informace, kterou předáváte svým genům. Každé sousto aktivuje nebo deaktivuje genetické přepínače. Olivový olej aktivuje longevity geny. Cukr a zpracovaná jídla aktivují prozánětlivé geny. Volíte si každý den, jakou informaci svým buňkám pošlete.</p>
+  </div>
+</div>
+
+<!-- CHAPTER 4 -->
+<div class="chapter">
+  <div class="ch-num">Kapitola 04</div>
+  <div class="ch-title">Spánek — nejsilnější biohacking nástroj</div>
+  <div class="ch-lead">Spánek je jedinou aktivitou, při které tělo provádí kompletní biologické opravy. Bez dostatečného spánku žádný biohacking nefunguje.</div>
+
+  <p>Během spánku probíhají procesy, které nelze nahrader ničím jiným: čištění mozku od beta-amyloidů (prevence Alzheimera), oprava DNA, regenerace svalů a imunitního systému, konsolidace paměti, produkce růstového hormonu a melatoninu.</p>
+
+  <div class="score-grid">
+    <div class="score-card">
+      <div class="val">7–9h</div>
+      <div class="lbl">Optimální délka spánku</div>
+    </div>
+    <div class="score-card">
+      <div class="val">23%</div>
+      <div class="lbl">Pokles imunity při 6h spánku</div>
+    </div>
+    <div class="score-card">
+      <div class="val">4×</div>
+      <div class="lbl">Vyšší riziko nemoci pod 6h</div>
+    </div>
+  </div>
+
+  <h2>Spánková architektura — co se děje v noci</h2>
+  <ul class="custom">
+    <li><strong>NREM 1–2 (lehký spánek):</strong> Přechod do spánku, konsolidace procedurálních vzpomínek</li>
+    <li><strong>NREM 3 (hluboký spánek):</strong> Fyzická regenerace, produkce růstového hormonu, čištění mozku</li>
+    <li><strong>REM spánek:</strong> Emoční zpracování, kreativita, konsolidace paměti</li>
+  </ul>
+  <p>Biohacking spánku neznamená prodloužit ho — znamená <strong>zlepšit jeho architekturu</strong>. I 7 hodin nekvalitního spánku je horší než 6.5 hodiny hlubokého, regeneračního spánku.</p>
+
+  <div class="protocol">
+    <div class="protocol-hd"><div class="pico">🌙</div><h4>Kompletní spánkový protokol</h4></div>
+    <div class="protocol-body">
+      <p><strong>Ráno:</strong> Přirozené sluneční světlo do 30 min po probuzení (nastaví cirkadiánní rytmus, produkci kortizolu a večerní melatonin)</p>
+      <p><strong>Přes den:</strong> Kofeín jen do 13:00 · Silová aktivita přes den, ne večer · Oběd největší jídlo</p>
+      <p><strong>Večer (od 19:00):</strong> Teplé světlo (svíčky, teplé LED) · Brýle blokující modré světlo · Telefon do letadlového režimu</p>
+      <p><strong>Před spaním:</strong> Magnézium glycinát 300–400 mg · Teplá koupel nebo sprcha (pokles tělesné teploty poté) · Ložnice chladná (18–19°C) a tmavá</p>
+      <p><strong>Čas spánku:</strong> Konstantní, i o víkendu ±30 minut. Sociální jet lag ničí biorytmus.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CHAPTER 5 -->
+<div class="chapter">
+  <div class="ch-num">Kapitola 05</div>
+  <div class="ch-title">Pohyb a mitochondrie — energie na buněčné úrovni</div>
+  <div class="ch-lead">Pohyb je nejsilnější lék proti stárnutí. Žádný supplement, žádná technologie to nenahradi. Ale typ a intenzita pohybu záleží víc, než si myslíte.</div>
+
+  <p>Každá buňka vašeho těla obsahuje stovky až tisíce mitochondrií — buněčných elektráren. S věkem jejich počet a funkce klesá. To způsobuje únavu, horší výkon, ale také urychluje stárnutí. Pohyb je nejúčinnějším nástrojem pro <strong>mitochondriální biogenezi</strong> — vznik nových mitochondrií.</p>
+
+  <h2>Longevity pohybový zásobník — 4 typy</h2>
+  <div class="grid-2">
+    <div class="pillar">
+      <h3>1. Silový trénink (priorita #1)</h3>
+      <p><strong>Proč:</strong> Svalová hmota je metabolicky aktivní. Chrání před sarkopení, zlepšuje citlivost na inzulin, zvyšuje hustotu kostí a produkuje myokiny — longevity molekuly.</p>
+      <p><strong>Jak:</strong> 2–3× týdně, komplexní cvičení (dřepy, mrtvé tahy, bench press, přítahy). Progresivní přetížení.</p>
+    </div>
+    <div class="pillar">
+      <h3>2. Zóna 2 kardio (aerobní základ)</h3>
+      <p><strong>Proč:</strong> Zóna 2 (60–70 % maximálního tepů) maximálně rozvíjí mitochondrie bez nadměrného kortizolu. Základ kardiovaskulárního a metabolického zdraví.</p>
+      <p><strong>Jak:</strong> 150–200 minut týdně. Chůze, kolo, lehký jogging. Mluvit ve větách — to je správná intenzita.</p>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:0">
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <h4>HIIT (2× týdně)</h4>
+      <p>Krátké intenzivní intervaly aktivují mitochondriální biogenezi a autopha gy. Ale jen 2× týdně — více zvyšuje kortizol kontraproduktivně.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧘</div>
+      <h4>Flexibilita a mobilita</h4>
+      <p>Jóga, strečink, pohybová terapie — regulace nervového systému, prevence zranění, udržení rozsahu pohybu s věkem.</p>
+    </div>
+  </div>
+
+  <div class="hl-box hl-blue">
+    <div class="title">VO2max — nejlepší prediktor délky života</div>
+    <p>VO2max (maximální spotřeba kyslíku) je silnějším prediktorem mortality než kouření, diabetes nebo kardiovaskulární onemocnění. Zvyšujte ho postupně: přidejte každý týden 5 % k aerobní zátěži. Zlepšení VO2max o 1 MET (metabolický ekvivalent) snižuje riziko kardiovaskulární smrti o 13–15 %.</p>
+  </div>
+</div>
+
+<!-- CHAPTER 6 -->
+<div class="chapter">
+  <div class="ch-num">Kapitola 06</div>
+  <div class="ch-title">Stres, adaptogeny a nervový systém</div>
+  <div class="ch-lead">Chronický stres je jeden z nejničivějších akcelerátorů biologického stárnutí. Neustálá aktivace osy HPA zkracuje telomery, poškozuje DNA a způsobuje systémový zánět.</div>
+
+  <p>Kortizol v malých dávkách je nezbytný — mobilizuje energii, podporuje paměť a imunitu. Ale <strong>chronicky vysoký kortizol</strong> způsobuje: zkracování telomer, poškozování hippocampu, inzulinovou rezistenci, narušení spánku a potlačení imunity.</p>
+
+  <h2>Adaptogeny — nejúčinnější naturální stresové modulátory</h2>
+  <table class="data">
+    <tr>
+      <th>Adaptogen</th>
+      <th>Hlavní účinky</th>
+      <th>Dávkování</th>
+      <th>Kdy brát</th>
+    </tr>
+    <tr>
+      <td><strong>Ashwagandha (KSM-66)</strong></td>
+      <td>Kortizol ↓, spánek ↑, libido ↑, svalová síla ↑</td>
+      <td>300–600 mg</td>
+      <td>Večer</td>
+    </tr>
+    <tr>
+      <td><strong>Rhodiola rosea</strong></td>
+      <td>Únava ↓, kognitivní výkon ↑, nálada ↑</td>
+      <td>200–400 mg</td>
+      <td>Ráno nalačno</td>
+    </tr>
+    <tr>
+      <td><strong>Reishi (Ganoderma)</strong></td>
+      <td>Imunita ↑, stres ↓, spánek ↑, anti-aging</td>
+      <td>1–3 g</td>
+      <td>Večer</td>
+    </tr>
+    <tr>
+      <td><strong>Lion's mane</strong></td>
+      <td>NGF ↑, kognitivní funkce ↑, neuroplasticita ↑</td>
+      <td>500 mg – 1 g</td>
+      <td>Ráno s jídlem</td>
+    </tr>
+    <tr>
+      <td><strong>Eleuterokok</strong></td>
+      <td>Fyzická odolnost ↑, imunita ↑, výkon ↑</td>
+      <td>300–1200 mg</td>
+      <td>Ráno</td>
+    </tr>
+    <tr>
+      <td><strong>Maca</strong></td>
+      <td>Energie ↑, libido ↑, hormonální rovnováha</td>
+      <td>1,5–3 g</td>
+      <td>Ráno s jídlem</td>
+    </tr>
+  </table>
+
+  <div class="hl-box hl-teal">
+    <div class="title">Techniky pro aktivaci parasympatiku</div>
+    <p><strong>Dech 4-7-8:</strong> nádech 4s → zadržení 7s → výdech 8s · <strong>Vagální stimulace:</strong> zpívání, gargará, studená voda na obličej · <strong>NSDR (Non-Sleep Deep Rest):</strong> 10–20 minut vědomé relaxace přes den — obnoví dopaminové zásoby a sníží kortizol · <strong>HRV (Heart Rate Variability) trénink:</strong> biofeedback přes aplikaci nebo chytré hodinky.</p>
+  </div>
+</div>
+
+<!-- CHAPTER 7 -->
+<div class="chapter">
+  <div class="ch-num">Kapitola 07</div>
+  <div class="ch-title">Biohackingové protokoly — 6 nejúčinnějších</div>
+  <div class="ch-lead">Zde jsou konkrétní protokoly, které mají nejsilnější vědeckou podporu a jsou dostupné každému — bez nutnosti drahého vybavení.</div>
+
+  <div class="protocol">
+    <div class="protocol-hd"><div class="pico">☀️</div><h4>Protokol 1: Světelná hygiena — cirkadiánní reset</h4></div>
+    <div class="protocol-body">
+      <p><strong>Ráno:</strong> Do 30 minut po probuzení ven na přirozené světlo (10 min v slunci, 20 min v zamračeno). Nastaví kortizol, serotonin a večerní melatonin.</p>
+      <p><strong>Večer:</strong> Po 20:00 teplé (jantarové) světlo. Brýle blokující modré světlo. Telefon na noc mimo dosah.</p>
+      <p><strong>Efekt:</strong> Zlepšení spánku do 1–2 týdnů, stabilnější energie, lepší nálada, delší telomery.</p>
+    </div>
+  </div>
+
+  <div class="protocol">
+    <div class="protocol-hd"><div class="pico">🥶</div><h4>Protokol 2: Cold exposure — výjimečný longevity nástroj</h4></div>
+    <div class="protocol-body">
+      <p><strong>Jak:</strong> Studená sprcha 30–90 sekund na konci teplé sprchy. Nebo ledová koupel (10–15°C) 2–10 minut, 3–5× týdně.</p>
+      <p><strong>Efekt:</strong> Norepinefrin +300 % (nálada, soustředění) · Aktivace hnědého tukového tkáně (spalování) · Lepší citlivost na inzulin · Redukce zánětu · Dopaminový nárůst po 3 hodinách trvající efekt.</p>
+      <p><strong>Pozor:</strong> Nepoužívat ihned po silovém tréninku — blokuje svalovou adaptaci.</p>
+    </div>
+  </div>
+
+  <div class="protocol">
+    <div class="protocol-hd"><div class="pico">⏰</div><h4>Protokol 3: Přerušovaný půst — autophagy a oprava buněk</h4></div>
+    <div class="protocol-body">
+      <p><strong>Jak:</strong> Jíst v 8–10 hodinovém okně (např. 8:00–18:00 nebo 10:00–18:00). Mimo toto okno jen voda, bylinkový čaj nebo černá káva.</p>
+      <p><strong>Efekt:</strong> Aktivace autophagy (čištění poškozených buněk) · Snížení inzulinu · Oprava mitochondrií · Zlepšení citlivosti na inzulin.</p>
+      <p><strong>Pozor:</strong> Ženy v perimenopauze by měly začínat opatrně (12 hodinový půst) a sledovat reakci těla. Příliš agresivní půst může zvýšit kortizol.</p>
+    </div>
+  </div>
+
+  <div class="protocol">
+    <div class="protocol-hd"><div class="pico">💡</div><h4>Protokol 4: Red Light Therapy (fotobiomodulace)</h4></div>
+    <div class="protocol-body">
+      <p><strong>Jak:</strong> Zařízení emitující červené světlo 630–660 nm a infračervené 810–850 nm. 10–20 minut denně, vzdálenost 30–60 cm.</p>
+      <p><strong>Efekt:</strong> Mitochondriální stimulace (ATP produkce) · Kolagen a hojení · Spánek (zvýšení melatoninu) · Redukce zánětu · Zdraví kůže.</p>
+    </div>
+  </div>
+
+  <div class="protocol">
+    <div class="protocol-hd"><div class="pico">🧖</div><h4>Protokol 5: Saunování — kardio pro líné</h4></div>
+    <div class="protocol-body">
+      <p><strong>Jak:</strong> Sauna (80–100°C) 4–7× týdně, 20 minut. Nebo infrasauna 3–5× týdně, 30–40 minut.</p>
+      <p><strong>Efekt:</strong> Finská studie: 4× týdně sauna snižuje kardiovaskulární mortalitu o 50 % · Produkce HSP (heat shock proteins) chrání buňky · Detoxikace · Redukce zánětu · Uvolnění endorfinů.</p>
+    </div>
+  </div>
+
+  <div class="protocol">
+    <div class="protocol-hd"><div class="pico">🧬</div><h4>Protokol 6: Měření a kvantifikace — "n=1 experimenty"</h4></div>
+    <div class="protocol-body">
+      <p><strong>Základní stack:</strong> Chytré hodinky nebo Oura prsten (spánek, HRV, tep) · Glukometr nebo CGM sensor (reakce glykemie na potraviny) · Pravidelné krevní testy (4× ročně).</p>
+      <p><strong>Proč:</strong> Bez měření jen hádáte. Data vám ukáží, jak vaše tělo skutečně reaguje na konkrétní jídla, stres, cvičení a spánek. To, co funguje u ostatních, nemusí fungovat u vás.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CHAPTER 8 -->
+<div class="chapter">
+  <div class="ch-num">Kapitola 08</div>
+  <div class="ch-title">Suplementace pro longevity — co věda říká</div>
+  <div class="ch-lead">Trh se suplementy je přeplněný. Zde jsou ty, pro které existují nejsilnější vědecké důkazy v kontextu longevity a biohackingu.</div>
+
+  <table class="data">
+    <tr>
+      <th>Suplement</th>
+      <th>Longevity mechanismus</th>
+      <th>Dávka</th>
+      <th>Zdroj/Forma</th>
+    </tr>
+    <tr>
+      <td><strong>Omega-3 EPA+DHA</strong></td>
+      <td>Ochrana telomer, protizánětlivý efekt, kardio a mozek</td>
+      <td>2–4 g EPA+DHA</td>
+      <td>Triglyceridová forma z tučných ryb</td>
+    </tr>
+    <tr>
+      <td><strong>Vitamin D3 + K2</strong></td>
+      <td>Exprese >200 genů, zdraví kostí, imunita, prevence rakoviny</td>
+      <td>2 000–5 000 IU D3 / 100–200 μg K2</td>
+      <td>MK-7 forma K2, cholekalciferol D3</td>
+    </tr>
+    <tr>
+      <td><strong>Magnézium</strong></td>
+      <td>Kofaktor >300 enzymů, DNA reparace, spánek, stres</td>
+      <td>300–400 mg</td>
+      <td>Glycinát nebo malát (nejlepší absorpce)</td>
+    </tr>
+    <tr>
+      <td><strong>CoQ10 (Ubiquinol)</strong></td>
+      <td>Mitochondriální funkce, antioxidant, kardio ochrana</td>
+      <td>100–300 mg</td>
+      <td>Ubiquinol (aktivní forma) pro 40+</td>
+    </tr>
+    <tr>
+      <td><strong>NMN nebo NR</strong></td>
+      <td>Zvyšuje NAD+ → sirtuiny, DNA reparace, energie</td>
+      <td>250–500 mg NMN</td>
+      <td>Sublingvální nebo enterická forma</td>
+    </tr>
+    <tr>
+      <td><strong>Resveratrol</strong></td>
+      <td>SIRT1 aktivace, protizánětlivý, kardiovaskulární</td>
+      <td>500 mg</td>
+      <td>Trans-resveratrol s quercetin nebo piperine</td>
+    </tr>
+    <tr>
+      <td><strong>Berberine</strong></td>
+      <td>AMPK aktivace (podobně jako metformin), glykemie, mikrobiom</td>
+      <td>500 mg 2×/den</td>
+      <td>S jídlem, kůra berberis</td>
+    </tr>
+    <tr>
+      <td><strong>Kolagen peptidy</strong></td>
+      <td>Kůže, klouby, střevní sliznice, kosti</td>
+      <td>10–15 g</td>
+      <td>Hydrolyzovaný typ I+III s vitaminem C</td>
+    </tr>
+  </table>
+
+  <div class="hl-box hl-gold">
+    <div class="title">Důležité — suplementy jsou záloha, ne základ</div>
+    <p>Nejlépe fungují suplementy jako doplněk kvalitní výživy, dobrého spánku a pohybu. Nenahrazují základy. Omega-3 z rybích kapslí nepřepíše škody způsobené chronickým stresem a špatným spánkem. Začněte základy — pak přidejte suplementy jako optimalizaci.</p>
+  </div>
+</div>
+
+<!-- CHAPTER 9 -->
+<div class="chapter">
+  <div class="ch-num">Kapitola 09</div>
+  <div class="ch-title">Diagnostika a měření biologického věku</div>
+  <div class="ch-lead">Co nelze změřit, nelze zlepšit. Moderní diagnostika umožňuje přesně zjistit váš biologický věk a identifikovat oblasti, kde stárnete nejrychleji.</div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-icon">🧬</div>
+      <h4>Methylace DNA (TruAge, Horvath clock)</h4>
+      <p>Zlatý standard měření biologického věku. Analýza epigenetických vzorců v DNA přesně ukazuje rychlost biologického stárnutí. Výsledek: váš skutečný biologický věk a "pace of aging".</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧪</div>
+      <h4>Komplexní krevní panel</h4>
+      <p>hsCRP (zánět), HbA1c (glykemie), lipidový profil, hormony, thyroid, vitamin D, ferritin, homocystein. Základ pro personalizovanou suplementaci a výživu.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🫁</div>
+      <h4>VO2max test</h4>
+      <p>Nejlepší prediktor délky zdravého života. Měří se na ergometru nebo odhaduje z chytrých hodinek. Každé zlepšení o 1 MET snižuje kardiovaskulární riziko o 13–15 %.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">💪</div>
+      <h4>Svalová síla a složení těla</h4>
+      <p>DEXA sken (svalová hmota, hustota kostí, viscerální tuk) nebo bioimpedance. Grip strength (síla stisku) je silným prediktorem zdravého stárnutí a mortality.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <h4>HRV (Heart Rate Variability)</h4>
+      <p>Variabilita srdečního rytmu je nejlepší denní marker stavu nervového systému a regenerace. Měřit ráno před vstáváním. Trend je důležitější než absolutní hodnota.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">💩</div>
+      <h4>Analýza mikrobiomu</h4>
+      <p>Diverzita a složení střevní mikroflóry koreluje s biologickým věkem. Dysbióza urychluje stárnutí a zánět. Základní test pro personalizaci výživy a probiotik.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CHAPTER 10 -->
+<div class="chapter">
+  <div class="ch-num">Kapitola 10</div>
+  <div class="ch-title">Váš 30denní longevity startovací plán</div>
+  <div class="ch-lead">Transformace začíná jedním krokem. Tento plán je navržen tak, aby byl realistický — ne perfektní. Pokrok, ne perfekcionismus.</div>
+
+  <div class="checklist">
+    <h4>Týden 1 — Základ: Spánek a světelná hygiena</h4>
+    <div class="check-item"><div class="check-box"></div>Konstantní čas vstávání každý den (i víkend) ±30 min</div>
+    <div class="check-item"><div class="check-box"></div>Ráno ven do přirozeného světla do 30 min po probuzení</div>
+    <div class="check-item"><div class="check-box"></div>Kofeín pouze do 13:00</div>
+    <div class="check-item"><div class="check-box"></div>Magnézium glycinát 300 mg večer</div>
+    <div class="check-item"><div class="check-box"></div>Ložnice: tma, chlad (18–19°C), bez telefonu</div>
+  </div>
+
+  <div class="checklist">
+    <h4>Týden 2 — Výživa: Protizánětlivý základ</h4>
+    <div class="check-item"><div class="check-box"></div>Jídelní okno maximálně 10 hodin (př. 8:00–18:00)</div>
+    <div class="check-item"><div class="check-box"></div>Extra panenský olivový olej 2–3 lžíce denně</div>
+    <div class="check-item"><div class="check-box"></div>Tučné ryby 3× v týdnu nebo omega-3 supplement</div>
+    <div class="check-item"><div class="check-box"></div>Fermentované potraviny denně — kefír, kimchi nebo jogurt</div>
+    <div class="check-item"><div class="check-box"></div>Luštěniny min. 3× v týdnu</div>
+  </div>
+
+  <div class="checklist">
+    <h4>Týden 3 — Pohyb: Silový trénink a zóna 2</h4>
+    <div class="check-item"><div class="check-box"></div>2× silový trénink (celé tělo, multi-kloubní cvičení)</div>
+    <div class="check-item"><div class="check-box"></div>150 minut zóna 2 kardio za týden (chůze, kolo)</div>
+    <div class="check-item"><div class="check-box"></div>Studená sprcha 30 sekund po ranní hygieně</div>
+    <div class="check-item"><div class="check-box"></div>Sledovat kroky — cíl 8 000–10 000 denně</div>
+  </div>
+
+  <div class="checklist">
+    <h4>Týden 4 — Stres a měření</h4>
+    <div class="check-item"><div class="check-box"></div>5 minut dechového cvičení ráno nebo večer (4-7-8)</div>
+    <div class="check-item"><div class="check-box"></div>Ashwagandha 300 mg večer (nebo Rhodiola ráno)</div>
+    <div class="check-item"><div class="check-box"></div>Nastavit měření HRV ráno (aplikace nebo hodinky)</div>
+    <div class="check-item"><div class="check-box"></div>Objednat krevní testy (vitamin D, omega-3, hsCRP jako minimum)</div>
+    <div class="check-item"><div class="check-box"></div>Vyhodnotit změny po 4 týdnech — co se zlepšilo?</div>
+  </div>
+
+  <div class="cta">
+    <h3>Chcete individuální longevity protokol?</h3>
+    <p>Na základě vašich symptomů, zdravotní anamnézy, laboratorních testů a biologického věku sestavím přesný biohackingový a výživový protokol pro maximalizaci vašeho healthspan. Žádné obecné rady — jen data a konkrétní kroky.</p>
+    <a href="https://www.body-spirit.cz/cz/konzultace/" class="btn-cta">Objednat konzultaci zdarma (20 min) →</a>
+    <div class="cta-sub">Online nebo osobně · Olomouc · Bez závazku</div>
+  </div>
+</div>
+
+<div class="doc-footer">
+  <span>© 2025 Bc. Veronika Topičová, MBA · Healthy Body Healthy Spirit</span>
+  <a href="https://www.body-spirit.cz/cz/">body-spirit.cz</a>
+</div>
+
+</div>
+</body>
+</html>
