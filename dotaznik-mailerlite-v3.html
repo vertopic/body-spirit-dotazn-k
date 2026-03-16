@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test perimenopauzy | Bc. Veronika Topičová, MBA</title>
+<style>
+/* ============ BRAND COLORS body-spirit.cz ============ */
+:root{
+  --white:#ffffff;
+  --bg:#fff5f8;
+  --bg2:#fde8f0;
+  --cream:#fdf0f5;
+  --border:#e8ccd8;
+  --border2:#d4a0bc;
+  --green:#8b2252;
+  --green2:#6b1438;
+  --green3:#a03570;
+  --green-lt:#fde8f2;
+  --green-lt2:#f9d0e4;
+  --gold:#c9a165;
+  --gold-lt:#e2c08a;
+  --gold-dk:#8a6830;
+  --rose:#c4668f;
+  --rose-lt:#fde8f2;
+  --text:#2c1a22;
+  --text2:#5a3a4a;
+  --text3:#8a6878;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased}
+
+/* ===== WRAPPER ===== */
+.quiz-wrap{max-width:680px;margin:0 auto;font-size:15px}
+
+/* ===== HEADER ===== */
+.quiz-hdr{background:var(--green2);padding:32px 36px 28px;border-radius:14px 14px 0 0;position:relative;overflow:hidden}
+.quiz-hdr::after{content:'';position:absolute;right:-50px;top:-50px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,0.04);pointer-events:none}
+.hdr-badge{display:inline-flex;align-items:center;gap:7px;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-lt);background:rgba(201,161,101,.12);border:1px solid rgba(201,161,101,.28);padding:4px 13px;border-radius:20px;margin-bottom:14px}
+.hdr-badge::before{content:'';width:5px;height:5px;background:var(--gold);border-radius:50%;flex-shrink:0;animation:blink 2.4s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+.quiz-hdr h2{font-size:23px;font-weight:700;color:#fff;line-height:1.22;margin-bottom:8px;letter-spacing:-.01em}
+.quiz-hdr p{font-size:13px;color:rgba(255,255,255,.62);line-height:1.55}
+.hdr-meta{display:flex;gap:18px;margin-top:13px;flex-wrap:wrap}
+.hdr-meta span{font-size:11px;color:var(--gold-lt);letter-spacing:.05em}
+
+/* ===== PROGRESS ===== */
+.prog-wrap{height:4px;background:rgba(255,255,255,.12);border-radius:0}
+.prog-bar{height:100%;background:linear-gradient(90deg,var(--rose),var(--gold));transition:width .5s ease;width:0;border-radius:0}
+.step-line{padding:7px 36px;background:var(--green2);font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.08em;border-bottom:1px solid rgba(255,255,255,.08)}
+
+/* ===== BODY ===== */
+.quiz-body{background:var(--white);border:1px solid var(--border);border-top:none;border-radius:0 0 14px 14px;padding:30px 36px 28px}
+
+/* ===== STEPS ===== */
+.qstep{display:none}
+.qstep.on{display:block}
+.q-cat{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--green3);font-weight:600;margin-bottom:5px}
+.q-txt{font-size:19px;font-weight:700;color:var(--text);line-height:1.28;margin-bottom:6px}
+.q-hint{font-size:13px;color:var(--text3);font-style:italic;line-height:1.52;margin-bottom:20px}
+.opts{display:grid;gap:9px;margin-top:2px}
+.opt{display:flex;align-items:center;gap:12px;padding:13px 16px;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;cursor:pointer;transition:all .18s;font-size:14px;color:var(--text2);user-select:none}
+.opt:hover{border-color:var(--green3);color:var(--text);background:var(--green-lt)}
+.opt.sel{border-color:var(--green);background:var(--green-lt2);color:var(--text);font-weight:500}
+.radio{width:18px;height:18px;border:1.5px solid var(--border2);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .18s}
+.opt.sel .radio{background:var(--green);border-color:var(--green)}
+.opt.sel .radio::after{content:'';width:7px;height:7px;background:#fff;border-radius:50%}
+
+/* ===== NAV ===== */
+.q-nav{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
+.btn-back{background:none;border:1.5px solid var(--border2);color:var(--text3);font-size:13px;padding:9px 20px;border-radius:8px;cursor:pointer;font-family:inherit;transition:all .18s}
+.btn-back:hover{color:var(--text);border-color:var(--text3)}
+.btn-next{background:var(--green);color:#fff;border:none;font-size:14px;font-weight:600;padding:12px 26px;border-radius:8px;cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-next:hover{background:var(--green2)}
+.btn-next:disabled{opacity:.35;cursor:not-allowed}
+
+/* ===== EMAIL GATE ===== */
+.egate{display:none;text-align:center;padding:4px 0 8px}
+.egate.on{display:block}
+.gate-lock{font-size:44px;margin-bottom:14px;opacity:.85}
+.gate-title{font-size:21px;font-weight:700;color:var(--text);margin-bottom:10px}
+.gate-desc{font-size:14px;color:var(--text2);line-height:1.72;max-width:460px;margin:0 auto 20px}
+.gate-benefits{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 auto 22px;max-width:460px;text-align:left}
+.gb{background:var(--green-lt);border:1px solid var(--green-lt2);border-radius:8px;padding:10px 12px;font-size:12.5px;color:var(--green2);display:flex;align-items:flex-start;gap:8px}
+.gb::before{content:'✓';font-weight:700;color:var(--green);flex-shrink:0}
+.gate-form{max-width:380px;margin:0 auto}
+.gate-form input{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:12px 14px;font-size:14px;font-family:inherit;color:var(--text);outline:none;transition:border-color .2s;margin-bottom:10px}
+.gate-form input:focus{border-color:var(--green)}
+.gdpr-txt{font-size:11px;color:var(--text3);text-align:center;line-height:1.55;margin-bottom:14px}
+.btn-gate{width:100%;background:var(--gold);color:var(--text);font-size:15px;font-weight:700;padding:14px;border-radius:8px;border:none;cursor:pointer;font-family:inherit;transition:all .2s;letter-spacing:.01em}
+.btn-gate:hover{background:var(--gold-lt);transform:translateY(-1px)}
+.btn-gate:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.gate-note{font-size:11px;color:var(--text3);margin-top:10px}
+.gate-error{font-size:12px;color:var(--rose);margin-top:6px;text-align:center;display:none}
+
+/* ===== RESULT ===== */
+.result{display:none}
+.result.on{display:block;text-align:center}
+.email-ok{background:var(--green-lt2);border:1px solid rgba(139,34,82,.3);border-radius:8px;padding:11px 16px;font-size:13px;color:var(--green2);margin-bottom:18px;text-align:center}
+.gauge{width:150px;height:75px;margin:0 auto 16px;position:relative}
+.gauge svg{width:150px;height:75px}
+.g-val{position:absolute;bottom:0;left:50%;transform:translateX(-50%);font-size:24px;font-weight:800;color:var(--text)}
+.res-badge{display:inline-block;padding:5px 18px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.09em;margin-bottom:14px}
+.b-lo{background:var(--green-lt2);color:var(--green2);border:1px solid rgba(139,34,82,.3)}
+.b-mi{background:rgba(201,161,101,.12);color:var(--gold-dk);border:1px solid rgba(201,161,101,.35)}
+.b-hi{background:rgba(196,102,143,.1);color:#7a3a3a;border:1px solid rgba(196,102,143,.35)}
+.res-title{font-size:21px;font-weight:700;color:var(--text);margin-bottom:9px}
+.res-desc{font-size:14px;color:var(--text2);line-height:1.75;max-width:500px;margin:0 auto 16px}
+.res-recs{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px 20px;text-align:left;margin:0 auto 20px;max-width:500px}
+.res-recs h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;letter-spacing:.01em}
+.res-recs ul{list-style:none}
+.res-recs li{font-size:13px;color:var(--text2);padding:5px 0 5px 20px;position:relative;border-bottom:1px solid var(--border)}
+.res-recs li:last-child{border:none}
+.res-recs li::before{content:'→';color:var(--green3);position:absolute;left:2px;top:6px}
+.btn-cta{display:inline-block;background:var(--green);color:#fff;font-size:14px;font-weight:700;padding:13px 28px;border-radius:8px;text-decoration:none;transition:all .2s;margin-bottom:10px}
+.btn-cta:hover{background:var(--green2);transform:translateY(-1px)}
+.disclaimer{font-size:11px;color:var(--text3);font-style:italic;margin-top:8px;line-height:1.5}
+.btn-reset{background:none;border:none;color:var(--text3);font-size:12px;cursor:pointer;text-decoration:underline;margin-top:8px;font-family:inherit}
+
+@media(max-width:520px){
+  .quiz-hdr,.step-line,.quiz-body{padding-left:20px;padding-right:20px}
+  .quiz-hdr{border-radius:10px 10px 0 0}
+  .quiz-body{border-radius:0 0 10px 10px}
+  .quiz-hdr h2{font-size:19px}
+  .q-txt{font-size:17px}
+  .gate-benefits{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="quiz-wrap">
+
+  <!-- HEADER -->
+  <div class="quiz-hdr">
+    <div class="hdr-badge">Diagnostický test · Celostní medicína</div>
+    <h2>Jsem v perimenopauze?</h2>
+    <p>10 otázek z pohledu naturopatie a celostní medicíny. Okamžité vyhodnocení s konkrétními doporučeními.</p>
+    <div class="hdr-meta">
+      <span>10 otázek</span><span>·</span><span>~3 minuty</span><span>·</span><span>bezplatně</span>
+    </div>
+  </div>
+  <div class="prog-wrap"><div class="prog-bar" id="pb"></div></div>
+  <div class="step-line" id="sl">Otázka 1 / 10</div>
+
+  <div class="quiz-body">
+
+    <!-- Q1 -->
+    <div class="qstep on" data-s="1" data-w="3">
+      <p class="q-cat">Energie & vitalita</p>
+      <p class="q-txt">Jak byste popsala svou celkovou energii v posledních 3 měsících?</p>
+      <p class="q-hint">Chronická únava je z pohledu naturopatie jedním z prvních signálů hormonální nerovnováhy.</p>
+      <div class="opts">
+        <label class="opt" onclick="pick(this,1,0)"><div class="radio"></div>Výborná — plná energie po celý den</label>
+        <label class="opt" onclick="pick(this,1,1)"><div class="radio"></div>Dobrá — občasné výkyvy, ale celkově v pořádku</label>
+        <label class="opt" onclick="pick(this,1,2)"><div class="radio"></div>Kolísavá — odpolední propady, potřebuji kofein nebo cukr</label>
+        <label class="opt" onclick="pick(this,1,3)"><div class="radio"></div>Nízká — unavená téměř stále, i po spánku</label>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="qstep" data-s="2" data-w="3">
+      <p class="q-cat">Spánek & regenerace</p>
+      <p class="q-txt">Jak kvalitní je váš spánek?</p>
+      <p class="q-hint">Spánek je z pohledu longevity a naturopatie základním pilířem hormonální regenerace.</p>
+      <div class="opts">
+        <label class="opt" onclick="pick(this,2,0)"><div class="radio"></div>Výborný — usínám snadno, ráno se cítím odpočatě</label>
+        <label class="opt" onclick="pick(this,2,1)"><div class="radio"></div>Dobrý — občas se probudím, ale většinou spím dobře</label>
+        <label class="opt" onclick="pick(this,2,2)"><div class="radio"></div>Narušený — probouzím se v noci nebo mám noční pocení</label>
+        <label class="opt" onclick="pick(this,2,3)"><div class="radio"></div>Velmi špatný — nespím pravidelně, ráno jsem vyčerpaná</label>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="qstep" data-s="3" data-w="4">
+      <p class="q-cat">Hormonální rovnováha — cyklus</p>
+      <p class="q-txt">Jak pravidelný je váš menstruační cyklus?</p>
+      <p class="q-hint">Změny cyklu jsou z naturopatického pohledu klíčovým ukazatelem hormonální rovnováhy.</p>
+      <div class="opts">
+        <label class="opt" onclick="pick(this,3,0)"><div class="radio"></div>Pravidelný — přichází každý měsíc ve stejnou dobu</label>
+        <label class="opt" onclick="pick(this,3,1)"><div class="radio"></div>Mírné odchylky — občas o týden dříve nebo později</label>
+        <label class="opt" onclick="pick(this,3,2)"><div class="radio"></div>Nepravidelný — vynechávám cykly nebo jsou delší/kratší</label>
+        <label class="opt" onclick="pick(this,3,3)"><div class="radio"></div>Menstruace vymizela nebo přichází méně než 4× ročně</label>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="qstep" data-s="4" data-w="3">
+      <p class="q-cat">Psychika & emoce</p>
+      <p class="q-txt">Jak byste popsala svou emoční stabilitu?</p>
+      <p class="q-hint">Estrogen a progesteron přímo ovlivňují serotonin a GABA — proto jsou emoce tak citlivým ukazatelem.</p>
+      <div class="opts">
+        <label class="opt" onclick="pick(this,4,0)"><div class="radio"></div>Stabilní — nálada se výrazně nemění</label>
+        <label class="opt" onclick="pick(this,4,1)"><div class="radio"></div>Mírné výkyvy — občas podrážděnost bez zjevného důvodu</label>
+        <label class="opt" onclick="pick(this,4,2)"><div class="radio"></div>Časté výkyvy — úzkost, smutek nebo přecitlivělost ovlivňují můj život</label>
+        <label class="opt" onclick="pick(this,4,3)"><div class="radio"></div>Výrazná nestabilita — emoce mě přemáhají a nezvládám je</label>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="qstep" data-s="5" data-w="3">
+      <p class="q-cat">Váha & metabolismus</p>
+      <p class="q-txt">Dochází u vás ke změnám tělesné hmotnosti nebo tvaru těla?</p>
+      <p class="q-hint">Ukládání tuku na břiše je typickým naturopatickým signálem inzulinové rezistence a poklesu estrogenů.</p>
+      <div class="opts">
+        <label class="opt" onclick="pick(this,5,0)"><div class="radio"></div>Stabilní — žádné změny</label>
+        <label class="opt" onclick="pick(this,5,1)"><div class="radio"></div>Mírné přibývání — zdá se mi to ale normální</label>
+        <label class="opt" onclick="pick(this,5,2)"><div class="radio"></div>Přibývám na břiše — i když jím stejně jako dřív</label>
+        <label class="opt" onclick="pick(this,5,3)"><div class="radio"></div>Výrazné přibývání — dieta ani cvičení nepomáhají</label>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="qstep" data-s="6" data-w="2">
+      <p class="q-cat">Kognice & mozek</p>
+      <p class="q-txt">Máte problémy se soustředěním, pamětí nebo myšlenkovými procesy?</p>
+      <p class="q-hint">Mozková mlha je přímý důsledek poklesu estrogenu na neuroplasticitu — řeší se výživou a biohackingem.</p>
+      <div class="opts">
+        <label class="opt" onclick="pick(this,6,0)"><div class="radio"></div>Žádné problémy — myslím jasně a soustředím se dobře</label>
+        <label class="opt" onclick="pick(this,6,1)"><div class="radio"></div>Mírné — občas zapomenu slovo nebo se hůře soustředím</label>
+        <label class="opt" onclick="pick(this,6,2)"><div class="radio"></div>Výrazná mozková mlha — narušuje práci nebo každodenní aktivity</label>
+        <label class="opt" onclick="pick(this,6,3)"><div class="radio"></div>Závažné problémy — pocit ztráty kontroly nad myšlenkami</label>
+      </div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="qstep" data-s="7" data-w="3">
+      <p class="q-cat">Tepelná regulace</p>
+      <p class="q-txt">Trpíte návaly horka nebo náhlými pocity tepla?</p>
+      <p class="q-hint">Návaly horka jsou přímou odpovědí hypotalamu na pokles estrogenů — ovlivnitelné adaptogeny a stravou.</p>
+      <div class="opts">
+        <label class="opt" onclick="pick(this,7,0)"><div class="radio"></div>Ne — žádné pocity horka ani pocení</label>
+        <label class="opt" onclick="pick(this,7,1)"><div class="radio"></div>Mírné — občasné přechodné zahřátí, ale neruší mě to</label>
+        <label class="opt" onclick="pick(this,7,2)"><div class="radio"></div>Časté — návaly horka přicházejí denně a narušují aktivity</label>
+        <label class="opt" onclick="pick(this,7,3)"><div class="radio"></div>Intenzivní — silné návaly i v noci, výrazně narušují spánek</label>
+      </div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="qstep" data-s="8" data-w="2">
+      <p class="q-cat">Kloubní & svalové zdraví</p>
+      <p class="q-txt">Pociťujete bolesti kloubů, svalů nebo zhoršenou regeneraci?</p>
+      <p class="q-hint">Estrogen má silný protizánětlivý efekt — jeho pokles se projevuje i na kloubním a svalovém zdraví.</p>
+      <div class="opts">
+        <label class="opt" onclick="pick(this,8,0)"><div class="radio"></div>Žádné bolesti — pohybuji se normálně</label>
+        <label class="opt" onclick="pick(this,8,1)"><div class="radio"></div>Mírné — občasná ztuhlost ráno nebo po cvičení</label>
+        <label class="opt" onclick="pick(this,8,2)"><div class="radio"></div>Výrazné — bolesti kloubů nebo svalů omezují aktivity</label>
+        <label class="opt" onclick="pick(this,8,3)"><div class="radio"></div>Silné — chronická bolest, velmi pomalá regenerace</label>
+      </div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="qstep" data-s="9" data-w="2">
+      <p class="q-cat">Trávení & mikrobiom</p>
+      <p class="q-txt">Zaznamenáváte změny v trávení nebo nové potravinové citlivosti?</p>
+      <p class="q-hint">Střevní mikrobiom a estrobolom se mění s hormonálními výkyvy — řeší se naturopaticky.</p>
+      <div class="opts">
+        <label class="opt" onclick="pick(this,9,0)"><div class="radio"></div>Žádné změny — trávení je v pořádku</label>
+        <label class="opt" onclick="pick(this,9,1)"><div class="radio"></div>Mírné — občasné nadýmání nebo citlivost na potraviny</label>
+        <label class="opt" onclick="pick(this,9,2)"><div class="radio"></div>Výrazné — pravidelné potíže s trávením, víc citlivostí než dřív</label>
+        <label class="opt" onclick="pick(this,9,3)"><div class="radio"></div>Silné — chronické potíže výrazně ovlivňují kvalitu života</label>
+      </div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="qstep" data-s="10" data-w="3">
+      <p class="q-cat">Pokožka, vlasy & fyzické změny</p>
+      <p class="q-txt">Pozorujete změny na pokožce, vlasech nebo jiné fyzické projevy?</p>
+      <p class="q-hint">Suchá pokožka, vypadávání vlasů a změny v uložení tuku jsou typickými ukazateli hormonálního přechodu.</p>
+      <div class="opts">
+        <label class="opt" onclick="pick(this,10,0)"><div class="radio"></div>Žádné — pokožka ani vlasy se nezměnily</label>
+        <label class="opt" onclick="pick(this,10,1)"><div class="radio"></div>Mírné — trochu suchá pokožka nebo jemnější vlasy</label>
+        <label class="opt" onclick="pick(this,10,2)"><div class="radio"></div>Výrazné — suchá pokožka, řidší vlasy nebo větší lámavost</label>
+        <label class="opt" onclick="pick(this,10,3)"><div class="radio"></div>Silné — výrazné změny pokožky, silné vypadávání vlasů</label>
+      </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <div class="q-nav" id="qnav">
+      <button class="btn-back" id="btnB" onclick="goBack()" style="visibility:hidden">← Zpět</button>
+      <button class="btn-next" id="btnN" onclick="goNext()" disabled>Další otázka →</button>
+    </div>
+
+    <!-- ===== EMAIL GATE ===== -->
+    <div class="egate" id="egate">
+      <div class="gate-lock">🔒</div>
+      <h3 class="gate-title">Vaše výsledky jsou připraveny!</h3>
+      <p class="gate-desc">Zadejte prosím jméno a email. Okamžitě zobrazíme váš osobní výsledek a zároveň vám zašleme zdarma průvodce <strong>„Perimenopauza krok za krokem"</strong>.</p>
+      <div class="gate-benefits">
+        <div class="gb">Personalizované vyhodnocení testu</div>
+        <div class="gb">Konkrétní naturopatická doporučení</div>
+        <div class="gb">PDF průvodce zdarma emailem</div>
+        <div class="gb">Žádný spam, odhlásit kdykoliv</div>
+      </div>
+      <div class="gate-form">
+        <input type="text" id="gName" placeholder="Vaše jméno *" autocomplete="given-name">
+        <input type="email" id="gEmail" placeholder="váš@email.cz *" autocomplete="email">
+        <p class="gdpr-txt">Odesláním souhlasíte se zpracováním osobních údajů za účelem zasílání výsledků a informací o zdravém životním stylu dle GDPR. Odhlásit se lze kdykoliv jedním kliknutím.</p>
+        <button class="btn-gate" id="btnGate" onclick="submitGate()">Zobrazit moje výsledky →</button>
+        <p class="gate-error" id="gateErr">Prosím vyplňte jméno a platnou emailovou adresu.</p>
+        <p class="gate-note">Bc. Veronika Topičová, MBA · body-spirit.cz</p>
+      </div>
+    </div>
+
+    <!-- ===== RESULT ===== -->
+    <div class="result" id="result">
+      <div class="email-ok" id="emailOk"></div>
+      <div class="gauge">
+        <svg viewBox="0 0 150 75">
+          <path d="M15 69 A57 57 0 0 1 135 69" fill="none" stroke="#e0dbd4" stroke-width="8" stroke-linecap="round"/>
+          <path id="garc" d="M15 69 A57 57 0 0 1 135 69" fill="none" stroke="#3a6b4a" stroke-width="8" stroke-linecap="round" stroke-dasharray="180" stroke-dashoffset="180" style="transition:stroke-dashoffset 1.2s ease"/>
+        </svg>
+        <div class="g-val" id="gv">0%</div>
+      </div>
+      <div class="res-badge" id="rb"></div>
+      <h3 class="res-title" id="rt"></h3>
+      <p class="res-desc" id="rd"></p>
+      <div class="res-recs"><h4 id="rrh"></h4><ul id="rrl"></ul></div>
+      <a href="https://www.body-spirit.cz/cz/konzultace/" target="_blank" class="btn-cta">Objednat konzultaci zdarma →</a>
+      <div class="disclaimer">Výsledky jsou orientační, nikoliv lékařská diagnóza.<br>© Bc. Veronika Topičová, MBA · body-spirit.cz</div>
+      <div><button class="btn-reset" onclick="reset()">Vyplnit znovu</button></div>
+    </div>
+
+  </div><!-- .quiz-body -->
+</div><!-- .quiz-wrap -->
+
+<script>
+/* ===== CONFIG ===== */
+/* MAILERLITE: Nahraďte YOUR_GROUP_ID vaším skutečným Group ID z MailerLite */
+var ML_API_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNjgxZDlhMWQzMDI2NmI5NjRiNmZhZDg3YjgzNjhjOWJmZjZiODgyNGZkOTBhM2RlOGQwOGNjNzhjODcwY2RkODJhNzFmNzdhMjQ5MDc3OWEiLCJpYXQiOjE3NzM2OTY1OTguMTIwMjYxLCJuYmYiOjE3NzM2OTY1OTguMTIwMjYzLCJleHAiOjQ5MjkzNzAxOTguMTE2MTgsInN1YiI6IjIyMTY3NzgiLCJzY29wZXMiOltdfQ.WfrBrcGqQIPopDYb_2A4s2vrcqiPXNkNWT5ZQousaeyeZp3HBN4OV0R4mew1zIhP6J2eWAtIRo6noy5lOwlL0rhfc0op3qHMxZOoIK5mlkpBLO93guoMagQoO7yu6qvolC9psR7OiWhAZARfpZsU215MLflwFG8n2Jnx01MuTW1xYNdih9DonZt2yHVTw5tKRMhWY2CNZyIVuTmsgLRv2cKsro9RLWg4i6TCwDAhayQsILHmNelGJ7B4Mve25re6V74eyY1R10V2kaQnKGEWoliueNjgHqN5BO_FV9MMi_Vmn2eazAwK1I3TmwO5AzHFi_37HVZbgG7EwDRQEwDgABP9mojtqq8jiFC3oXgqwkXBEJaarDbT0o7hgZYnNWaHlI7cQMvSatDjVfItniKdsrY8SPAyYctGwsD6HH0NnOuybrWQ9O2kI2JZ9ZalgFuhusXGx9HObwbtppLLU_-XYBuiFAYJlPL-Zoy5CgnS63uPfsBQRgsHnasOZx0tVmOY4_fZzM7hHmfOOMVDwBPCYrj3xV_vhhVcr0m0WO2lxB_1CUZsNdk6kEbGxUPJ8_DCLLZ9v-a38VwPHqsukuBZsDBJ_QdF20TQFDwiJhVSAAGAMUe2VNaYOnIOwxiV5ZeOA9xwJCGF6_Mh82IfW1AO1YVP5BsxfNpFaAraXyp0ORM';
+var ML_GROUP_ID = '182131287786522479';
+
+/* ===== QUIZ STATE ===== */
+var A = {}, step = 1, tot = 10;
+
+function pick(el, s, v) {
+  el.parentElement.querySelectorAll('.opt').forEach(function(o){ o.classList.remove('sel') });
+  el.classList.add('sel');
+  A[s] = v;
+  document.getElementById('btnN').disabled = false;
+}
+
+function goNext() {
+  if (A[step] === undefined) return;
+  if (step === tot) { showGate(); return; }
+  document.querySelector('.qstep[data-s="'+step+'"]').classList.remove('on');
+  step++;
+  document.querySelector('.qstep[data-s="'+step+'"]').classList.add('on');
+  document.getElementById('pb').style.width = ((step-1)/tot*100) + '%';
+  document.getElementById('sl').textContent = 'Otázka ' + step + ' / ' + tot;
+  document.getElementById('btnB').style.visibility = 'visible';
+  document.getElementById('btnN').disabled = (A[step] === undefined);
+  if (step === tot) document.getElementById('btnN').textContent = 'Zobrazit výsledky →';
+}
+
+function goBack() {
+  if (step === 1) return;
+  document.querySelector('.qstep[data-s="'+step+'"]').classList.remove('on');
+  step--;
+  document.querySelector('.qstep[data-s="'+step+'"]').classList.add('on');
+  document.getElementById('pb').style.width = ((step-1)/tot*100) + '%';
+  document.getElementById('sl').textContent = 'Otázka ' + step + ' / ' + tot;
+  document.getElementById('btnN').disabled = false;
+  document.getElementById('btnN').textContent = 'Další otázka →';
+  if (step === 1) document.getElementById('btnB').style.visibility = 'hidden';
+}
+
+function calcScore() {
+  var steps = document.querySelectorAll('.qstep[data-s]');
+  var total = 0, max = 0;
+  steps.forEach(function(s){
+    var st = parseInt(s.getAttribute('data-s'));
+    var w = parseInt(s.getAttribute('data-w') || 2);
+    total += (A[st] || 0) * w;
+    max += 3 * w;
+  });
+  return Math.round(total / max * 100);
+}
+
+function showGate() {
+  document.getElementById('pb').style.width = '100%';
+  document.getElementById('sl').textContent = 'Dokončeno — zadejte email pro výsledky';
+  document.getElementById('qnav').style.display = 'none';
+  document.querySelectorAll('.qstep').forEach(function(s){ s.style.display = 'none' });
+  document.getElementById('egate').classList.add('on');
+}
+
+/* ===== MAILERLITE INTEGRATION ===== */
+function submitGate() {
+  var name = document.getElementById('gName').value.trim();
+  var email = document.getElementById('gEmail').value.trim();
+  var errEl = document.getElementById('gateErr');
+  errEl.style.display = 'none';
+
+  if (!name || !email || !email.includes('@') || !email.includes('.')) {
+    errEl.style.display = 'block';
+    return;
+  }
+
+  var btn = document.getElementById('btnGate');
+  btn.disabled = true;
+  btn.textContent = 'Odesílám...';
+
+  /* --- MailerLite API v2 subscriber add --- */
+  /* Pokud ML_API_KEY obsahuje 'VAS_', odešleme pouze lokálně bez API */
+  if (ML_API_KEY.indexOf('VAS_') === 0) {
+    /* Fallback - bez API klíče jen zobrazíme výsledek */
+    console.log('MailerLite: API klíč není nastaven. Email:', email, 'Jméno:', name);
+    btn.disabled = false;
+    showResult(calcScore(), name, email, false);
+    return;
+  }
+
+  /* MailerLite API v3 - správný formát pro nové tokeny */
+  var score = calcScore();
+
+  /* Krok 1: Přidat nebo aktualizovat odběratele */
+  fetch('https://connect.mailerlite.com/api/subscribers', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ' + ML_API_KEY
+    },
+    body: JSON.stringify({
+      email: email,
+      fields: {
+        name: name,
+        last_name: ''
+      },
+      groups: [ML_GROUP_ID],
+      status: 'active'
+    })
+  })
+  .then(function(r){
+    if (!r.ok) {
+      return r.text().then(function(t){
+        console.error('MailerLite status:', r.status, t);
+        throw new Error('API error ' + r.status);
+      });
+    }
+    return r.json();
+  })
+  .then(function(data){
+    console.log('MailerLite: subscriber added', data);
+    btn.disabled = false;
+    showResult(score, name, email, true);
+  })
+  .catch(function(err){
+    console.error('MailerLite error:', err);
+    btn.disabled = false;
+    /* Zobrazíme výsledek i při chybě - email byl pravděpodobně přidán */
+    showResult(score, name, email, false);
+  });
+}
+
+function showResult(pct, name, email, mlOk) {
+  document.getElementById('egate').classList.remove('on');
+  document.getElementById('emailOk').style.display = 'block';
+  document.getElementById('emailOk').textContent = mlOk
+    ? '✓ Průvodce byl odeslán na ' + email + '. Zkontrolujte svou emailovou schránku.'
+    : '✓ Výsledky jsou níže. Průvodce bude odeslán na ' + email + ' brzy.';
+
+  document.getElementById('garc').style.strokeDashoffset = 180 - (180 * pct / 100);
+  document.getElementById('gv').textContent = pct + '%';
+
+  var badge, bclass, title, desc, recsH, recs, color;
+  if (pct <= 20) {
+    color = '#3a6b4a'; badge = 'RANÁ / PREVENTIVNÍ FÁZE'; bclass = 'b-lo';
+    title = 'Žádné výrazné příznaky';
+    desc = 'Vaše odpovědi naznačují, že perimenopauza pravděpodobně ještě nezačala nebo je v úplně rané fázi. Je to ideální čas preventivně budovat základy — čím zdravější váš životní styl dnes, tím hladší bude váš hormonální přechod.';
+    recsH = 'Preventivní naturopatická doporučení:';
+    recs = ['Začněte s cirkadiánním rytmem — pravidelný čas spánku a vstávání', 'Zvyšte příjem bílkovin — minimum 1,4 g na kg tělesné váhy', 'Snižte chronický stres — hlavní spouštěč raných hormonálních změn', 'Pravidelný silový trénink — investujte do svalové hmoty teď'];
+  } else if (pct <= 45) {
+    color = '#8a6830'; badge = 'RANÁ PERIMENOPAUZA'; bclass = 'b-mi';
+    title = 'Rané příznaky perimenopauzy';
+    desc = 'Vaše odpovědi naznačují, že pravděpodobně vstupujete do perimenopauzy nebo jste v její rané fázi. Hormonální výkyvy jsou zatím mírné, ale tělo vysílá první signály. Ideální moment pro cílenou přirozenou podporu.';
+    recsH = 'Naturopatické prioritní oblasti:';
+    recs = ['Estrogen podporující strava — brukvová zelenina, lněné semínko, fytoestrogeny', 'Adaptogenní byliny — ashwagandha, maca, červený jetel pro hormonální rovnováhu', 'Spánková architektura — optimalizace přes světelnou terapii a melatoninové rytmy', 'DUTCH hormonální test — přesně zmapujte vaši specifickou hormonální situaci'];
+  } else if (pct <= 70) {
+    color = '#7a3a3a'; badge = 'AKTIVNÍ PERIMENOPAUZA'; bclass = 'b-hi';
+    title = 'Výrazné příznaky perimenopauzy';
+    desc = 'Vaše příznaky naznačují aktivní perimenopauzu. Vaše tělo potřebuje jiný přístup — výživově i životním stylem. Standardní doporučení v této fázi přestávají fungovat. Individuální konzultace nastaví konkrétní naturopatický plán.';
+    recsH = 'Prioritní intervence:';
+    recs = ['Individuální DUTCH hormonální test — základ pro přesnou cílenou intervenci', 'Terapeutický výživový protokol — stabilizace inzulinu a kortizolu', 'Naturopatická suplementace — magnézium glycinát, vitamin D3+K2, omega-3', 'Biohacking pro spánek — prioritizujte nad vším ostatním v této fázi'];
+  } else {
+    color = '#6b2a22'; badge = 'MENOPAUZA / POST-MENOPAUZA'; bclass = 'b-hi';
+    title = 'Výrazný hormonální přechod';
+    desc = 'Vaše odpovědi naznačují pokročilejší perimenopauzu nebo menopauzu. Tělo prochází intenzivními hormonálními změnami. Individuální konzultace a diagnostické testy jsou správným prvním krokem.';
+    recsH = 'Doporučené okamžité kroky:';
+    recs = ['Individuální konzultace — personalizované posouzení vaší situace', 'DUTCH test + analýza mikrobiomu — komplexní hormonální a metabolická mapa', '6-měsíční program perimenopauza — strukturovaná podpora všech systémů těla', 'Naturopatický protokol pro zdraví kostí — prioritní oblast v menopauze'];
+  }
+
+  document.getElementById('garc').style.stroke = color;
+  document.getElementById('gv').style.color = color;
+  var rb = document.getElementById('rb');
+  rb.textContent = badge; rb.className = 'res-badge ' + bclass;
+  document.getElementById('rt').textContent = title;
+  document.getElementById('rd').textContent = desc;
+  document.getElementById('rrh').textContent = recsH;
+  var ul = document.getElementById('rrl'); ul.innerHTML = '';
+  recs.forEach(function(r){ var li = document.createElement('li'); li.textContent = r; ul.appendChild(li); });
+  document.getElementById('result').classList.add('on');
+}
+
+function reset() {
+  A = {}; step = 1;
+  document.querySelectorAll('.qstep').forEach(function(s){ s.style.display = ''; s.classList.remove('on'); });
+  document.querySelector('.qstep[data-s="1"]').classList.add('on');
+  document.getElementById('qnav').style.display = '';
+  document.getElementById('pb').style.width = '0%';
+  document.getElementById('sl').textContent = 'Otázka 1 / 10';
+  document.getElementById('btnB').style.visibility = 'hidden';
+  document.getElementById('btnN').disabled = true;
+  document.getElementById('btnN').textContent = 'Další otázka →';
+  document.getElementById('egate').classList.remove('on');
+  document.getElementById('result').classList.remove('on');
+  document.getElementById('emailOk').style.display = 'none';
+  document.getElementById('gateErr').style.display = 'none';
+  document.getElementById('gName').value = '';
+  document.getElementById('gEmail').value = '';
+  var btn = document.getElementById('btnGate');
+  btn.disabled = false;
+  btn.textContent = 'Zobrazit moje výsledky →';
+}
+</script>
+</body>
+</html>
