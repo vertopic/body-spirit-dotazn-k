@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perimenopauza krok za krokem | Bc. Veronika Topičová, MBA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* ROSE / PINK brand palette - Healthy Body Healthy Spirit */
+  --forest:#8b2252;      /* deep rose - main dark */
+  --forest2:#a0306a;     /* medium rose */
+  --moss:#b8457a;        /* mid rose - headings */
+  --sage:#c4668f;        /* lighter rose - accents */
+  --cream:#fff5f8;       /* very light pink bg */
+  --cream2:#fde8f0;      /* light pink surface */
+  --gold:#c9a165;        /* warm gold - kept as accent */
+  --gold-lt:#e2c08a;     /* light gold */
+  --rose:#b8457a;        /* rose accent */
+  --rose-lt:#e8a0be;     /* light rose */
+  --text:#2c1a22;        /* dark rose-tinted text */
+  --text2:#5a3a4a;       /* muted rose text */
+  --text3:#8a6878;       /* hint text */
+  --fd:'Cormorant Garamond',serif; --fb:'Plus Jakarta Sans',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px}
+body{background:#fff8fa;color:var(--text);font-family:var(--fb);line-height:1.7}
+.page{max-width:800px;margin:0 auto;background:#fff;box-shadow:0 4px 40px rgba(100,20,50,.08)}
+
+/* PRINT BUTTON */
+.print-bar{background:var(--forest);color:var(--cream);padding:12px 32px;display:flex;align-items:center;justify-content:space-between;font-size:13px}
+.print-bar span{color:rgba(245,240,232,.7)}
+.btn-print{background:var(--gold);color:var(--forest);border:none;font-size:13px;font-weight:600;padding:8px 20px;border-radius:5px;cursor:pointer;font-family:var(--fb);transition:all .2s}
+.btn-print:hover{background:var(--gold-lt)}
+
+/* COVER */
+.cover{background:linear-gradient(160deg,#6b1438 0%,#8b2252 45%,#a0306a 100%);padding:72px 64px 60px;position:relative;overflow:hidden;min-height:420px;display:flex;flex-direction:column;justify-content:flex-end}
+.cover-bg{position:absolute;right:-60px;top:-60px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(184,69,122,.1) 0%,transparent 65%);pointer-events:none}
+.cover-bg2{position:absolute;left:-40px;bottom:-40px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(255,200,220,.15) 0%,transparent 65%);pointer-events:none}
+.cover-badge{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-lt);background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);padding:5px 14px;border-radius:3px;display:inline-block;margin-bottom:20px;font-family:var(--fb)}
+.cover h1{font-family:var(--fd);font-size:52px;font-weight:700;color:var(--cream);line-height:1.05;letter-spacing:-.01em;margin-bottom:14px}
+.cover h1 em{font-style:italic;color:var(--gold-lt)}
+.cover-sub{font-size:16px;color:rgba(245,240,232,.65);max-width:500px;line-height:1.7;margin-bottom:32px;font-family:var(--fb)}
+.cover-author{display:flex;align-items:center;gap:14px;border-top:1px solid rgba(245,240,232,.12);padding-top:24px}
+.author-av{width:48px;height:48px;background:rgba(245,240,232,.1);border:1px solid rgba(245,240,232,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:20px;color:var(--gold-lt)}
+.author-name{font-family:var(--fd);font-size:17px;font-weight:600;color:var(--cream)}
+.author-title{font-size:11px;color:rgba(245,240,232,.5);letter-spacing:.06em;font-family:var(--fb)}
+
+/* TOC */
+.toc{padding:48px 64px;background:var(--cream);border-bottom:1px solid rgba(139,34,82,.1)}
+.toc-title{font-family:var(--fd);font-size:28px;font-weight:600;color:var(--forest);margin-bottom:24px}
+.toc-item{display:flex;align-items:baseline;gap:8px;padding:9px 0;border-bottom:1px solid rgba(139,34,82,.08)}
+.toc-item:last-child{border:none}
+.toc-num{font-family:var(--fb);font-size:11px;color:var(--sage);font-weight:600;min-width:28px;letter-spacing:.04em}
+.toc-name{font-family:var(--fd);font-size:17px;color:var(--text);flex:1}
+.toc-dots{flex:1;border-bottom:1px dotted rgba(139,34,82,.2);margin:0 8px 4px}
+.toc-pg{font-family:var(--fb);font-size:12px;color:var(--text3)}
+
+/* CHAPTERS */
+.chapter{padding:56px 64px;border-bottom:1px solid rgba(139,34,82,.08)}
+.chapter:last-child{border:none}
+.ch-header{margin-bottom:32px}
+.ch-num{font-family:var(--fb);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);margin-bottom:8px}
+.ch-title{font-family:var(--fd);font-size:38px;font-weight:700;color:var(--forest);line-height:1.1;letter-spacing:-.01em;margin-bottom:10px}
+.ch-lead{font-size:17px;color:var(--text2);line-height:1.78;max-width:620px;font-style:italic;font-family:var(--fd)}
+
+h2{font-family:var(--fd);font-size:26px;font-weight:600;color:var(--forest);margin:32px 0 14px;line-height:1.2}
+h3{font-family:var(--fd);font-size:20px;font-weight:600;color:var(--moss);margin:24px 0 10px}
+p{font-size:15px;color:var(--text2);line-height:1.82;margin-bottom:16px}
+strong{color:var(--text);font-weight:600}
+
+/* HIGHLIGHT BOXES */
+.hl-box{border-radius:12px;padding:20px 24px;margin:24px 0}
+.hl-green{background:rgba(139,34,82,.06);border-left:3px solid var(--moss)}
+.hl-gold{background:rgba(201,168,76,.07);border-left:3px solid var(--gold)}
+.hl-rose{background:rgba(184,69,122,.07);border-left:3px solid var(--rose)}
+.hl-box .title{font-family:var(--fd);font-size:16px;font-weight:600;color:var(--forest);margin-bottom:8px}
+.hl-box p{margin:0;font-size:14px;line-height:1.72}
+
+/* LISTS */
+ul.custom,ol.custom{margin:12px 0 16px 0;padding:0;list-style:none}
+ul.custom li,ol.custom li{padding:6px 0 6px 24px;position:relative;font-size:15px;color:var(--text2);line-height:1.72;border-bottom:1px solid rgba(139,34,82,.06)}
+ul.custom li:last-child,ol.custom li:last-child{border:none}
+ul.custom li::before{content:'';width:6px;height:6px;background:var(--sage);border-radius:50%;position:absolute;left:4px;top:13px}
+ol.custom{counter-reset:li}
+ol.custom li::before{content:counter(li);counter-increment:li;position:absolute;left:0;top:6px;font-family:var(--fb);font-size:11px;font-weight:600;color:var(--moss);background:rgba(139,34,82,.1);width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;line-height:18px;text-align:center}
+
+/* GRID CARDS */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0}
+.card{background:var(--cream);border:1px solid rgba(139,34,82,.12);border-radius:10px;padding:18px}
+.card-icon{font-size:24px;margin-bottom:10px}
+.card h4{font-family:var(--fd);font-size:16px;font-weight:600;color:var(--forest);margin-bottom:6px}
+.card p{font-size:13px;color:var(--text2);line-height:1.65;margin:0}
+
+/* TIMELINE */
+.timeline{margin:24px 0}
+.tl-item{display:flex;gap:20px;margin-bottom:20px}
+.tl-dot{width:36px;height:36px;border-radius:50%;background:var(--forest);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:14px;font-weight:700;color:var(--gold-lt);flex-shrink:0;margin-top:2px}
+.tl-content h4{font-family:var(--fd);font-size:17px;font-weight:600;color:var(--forest);margin-bottom:4px}
+.tl-content p{font-size:14px;color:var(--text2);line-height:1.7;margin:0}
+
+/* TABLE */
+table.data{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}
+table.data th{background:var(--forest);color:var(--cream);padding:10px 14px;text-align:left;font-family:var(--fb);font-size:12px;font-weight:500;letter-spacing:.04em}
+table.data td{padding:10px 14px;border-bottom:1px solid rgba(139,34,82,.1);color:var(--text2);vertical-align:top}
+table.data tr:nth-child(even) td{background:rgba(139,34,82,.03)}
+
+/* PILLAR SECTION */
+.pillar{background:var(--forest);border-radius:14px;padding:28px;margin:20px 0;color:var(--cream)}
+.pillar h3{font-family:var(--fd);font-size:22px;font-weight:600;color:var(--gold-lt);margin-bottom:10px}
+.pillar p{font-size:14px;color:rgba(245,240,232,.75);line-height:1.72;margin-bottom:12px}
+.pillar p:last-child{margin:0}
+.pillar strong{color:var(--cream)}
+
+/* CHECKLIST */
+.checklist{background:var(--cream);border:1px solid rgba(139,34,82,.12);border-radius:12px;padding:22px 26px;margin:20px 0}
+.checklist h4{font-family:var(--fd);font-size:18px;font-weight:600;color:var(--forest);margin-bottom:14px}
+.check-item{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid rgba(139,34,82,.07);font-size:14px;color:var(--text2)}
+.check-item:last-child{border:none}
+.check-box{width:18px;height:18px;border:1.5px solid rgba(139,34,82,.3);border-radius:4px;flex-shrink:0;margin-top:1px}
+
+/* CTA */
+.cta{background:linear-gradient(135deg,#6b1438,#8b2252);border-radius:16px;padding:40px;text-align:center;margin:40px 0 0}
+.cta h3{font-family:var(--fd);font-size:28px;font-weight:700;color:var(--cream);margin-bottom:10px}
+.cta p{font-size:15px;color:rgba(245,240,232,.7);line-height:1.7;margin-bottom:24px}
+.btn-cta{display:inline-block;background:var(--gold);color:var(--forest);font-size:15px;font-weight:700;padding:14px 32px;border-radius:8px;text-decoration:none;font-family:var(--fb)}
+.cta-sub{font-size:12px;color:rgba(245,240,232,.45);margin-top:12px}
+
+/* FOOTER */
+.doc-footer{background:var(--forest2);padding:24px 64px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:rgba(245,240,232,.4);font-family:var(--fb)}
+.doc-footer a{color:rgba(245,240,232,.6);text-decoration:none}
+
+@media print{
+  .print-bar{display:none}
+  body{background:#fff}
+  .page{box-shadow:none;max-width:100%}
+  .chapter{page-break-inside:avoid}
+  .cover{page-break-after:always}
+  .toc{page-break-after:always}
+}
+@media(max-width:700px){
+  .cover,.toc,.chapter{padding:32px 24px}
+  .cover h1{font-size:34px}
+  .ch-title{font-size:28px}
+  .grid-2,.grid-3{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- PRINT BAR -->
+<div class="print-bar">
+  <span>Průvodce ke stažení · body-spirit.cz</span>
+  <button class="btn-print" onclick="window.print()">Uložit jako PDF / Tisk</button>
+</div>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-bg"></div>
+  <div class="cover-bg2"></div>
+  <div class="cover-badge">Průvodce · Celostní medicína & Naturopatie</div>
+  <h1>Perimenopauza<br><em>krok za krokem</em></h1>
+  <p class="cover-sub">Jak porozumět hormonálnímu přechodu, přirozeně zvládnout příznaky a znovu najít energii a vitalitu — bez diet, bez extrémů, v souladu s ženskou biologií.</p>
+  <div class="cover-author">
+    <div class="author-av">VT</div>
+    <div>
+      <div class="author-name">Bc. Veronika Topičová, MBA</div>
+      <div class="author-title">CELOSTNÍ VÝŽIVOVÁ SPECIALISTKA · BIOHACKING & LONGEVITY KOUČKA · PRŮVODKYNĚ PERIMENOPAUZY</div>
+    </div>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <div class="toc-title">Obsah průvodce</div>
+  <div class="toc-item"><span class="toc-num">01</span><span class="toc-name">Co je perimenopauza — a proč o ní nikdo nemluví</span><span class="toc-dots"></span><span class="toc-pg">3</span></div>
+  <div class="toc-item"><span class="toc-num">02</span><span class="toc-name">Hormony v perimenopauze — co se skutečně děje</span><span class="toc-dots"></span><span class="toc-pg">4</span></div>
+  <div class="toc-item"><span class="toc-num">03</span><span class="toc-name">10 nejčastějších příznaků a jejich přirozená řešení</span><span class="toc-dots"></span><span class="toc-pg">5</span></div>
+  <div class="toc-item"><span class="toc-num">04</span><span class="toc-name">Výživa v perimenopauze — co jíst a co se vyhnout</span><span class="toc-dots"></span><span class="toc-pg">7</span></div>
+  <div class="toc-item"><span class="toc-num">05</span><span class="toc-name">Biohacking pro ženy ve 40+ — 5 klíčových protokolů</span><span class="toc-dots"></span><span class="toc-pg">9</span></div>
+  <div class="toc-item"><span class="toc-num">06</span><span class="toc-name">Pohyb a svalová hmota — proč je to jinak než dřív</span><span class="toc-dots"></span><span class="toc-pg">10</span></div>
+  <div class="toc-item"><span class="toc-num">07</span><span class="toc-name">Suplementace v perimenopauze — co skutečně funguje</span><span class="toc-dots"></span><span class="toc-pg">11</span></div>
+  <div class="toc-item"><span class="toc-num">08</span><span class="toc-name">Stres, nervový systém a emoční zdraví</span><span class="toc-dots"></span><span class="toc-pg">12</span></div>
+  <div class="toc-item"><span class="toc-num">09</span><span class="toc-name">Váš 30denní startovací plán</span><span class="toc-dots"></span><span class="toc-pg">13</span></div>
+  <div class="toc-item"><span class="toc-num">10</span><span class="toc-name">Kdy vyhledat odbornou pomoc — diagnostické testy</span><span class="toc-dots"></span><span class="toc-pg">14</span></div>
+</div>
+
+<!-- CHAPTER 1 -->
+<div class="chapter">
+  <div class="ch-header">
+    <div class="ch-num">Kapitola 01</div>
+    <div class="ch-title">Co je perimenopauza — a proč o ní nikdo nemluví</div>
+    <div class="ch-lead">Perimenopauza začíná průměrně 8–10 let před menopauzou. To znamená, že první příznaky mohou přijít již ve 35 letech. Přesto o ní většina žen slyší poprvé, až je v plném proudu.</div>
+  </div>
+
+  <p>Perimenopauza je přechodné období, během kterého vaječníky postupně snižují produkci estrogenů a progesteronu. Na rozdíl od menopauzy samotné — která je definována jako 12 měsíců bez menstruace — perimenopauza trvá <strong>průměrně 4 až 10 let</strong> a probíhá u každé ženy jinak.</p>
+
+  <div class="hl-box hl-green">
+    <div class="title">Proč se perimenopauza tak často přehlíží?</div>
+    <p>Příznaky perimenopauzy jsou nespecifické — únava, výkyvy nálad, změny spánku. Lékaři je často přičítají stresu, práci nebo „normálnímu stárnutí". Přitom za nimi stojí konkrétní hormonální biochemie, která se dá přirozeně ovlivnit.</p>
+  </div>
+
+  <h2>Tři fáze přechodu</h2>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot">1</div>
+      <div class="tl-content">
+        <h4>Raná perimenopauza (35–45 let)</h4>
+        <p>Cykly se začínají měnit. Progesteron klesá jako první. Přicházejí první příznaky — podrážděnost před menstruací, horší spánek, mírná únava. Menstruace je stále pravidelná nebo mírně nepravidelná.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">2</div>
+      <div class="tl-content">
+        <h4>Pozdní perimenopauza (45–52 let)</h4>
+        <p>Estrogen začíná výrazněji kolísat. Menstruace je nepravidelná, cykly se zkracují nebo prodlužují. Příznaky se intenzifikují — návaly horka, noční pocení, mozková mlha, přibývání na břiše.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">3</div>
+      <div class="tl-content">
+        <h4>Menopauza (průměrně 51 let)</h4>
+        <p>12 měsíců bez menstruace. Hormony se stabilizují na nové, nižší úrovni. Mnoho příznaků se zmírní, ale některé — jako ztráta svalové hmoty nebo zdraví kostí — vyžadují dlouhodobou pozornost.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="hl-box hl-rose">
+    <div class="title">Důležité: Perimenopauza není nemoc</div>
+    <p>Z pohledu naturopatie je perimenopauza přirozená biologická událost — stejně jako puberta. Není to selhání těla, ale přechod, který lze podpořit přirozenými nástroji. Cílem není "zastavit" přechod, ale provést ho s co největší vitalitou a minimalní diskomfortem.</p>
+  </div>
+</div>
+
+<!-- CHAPTER 2 -->
+<div class="chapter">
+  <div class="ch-header">
+    <div class="ch-num">Kapitola 02</div>
+    <div class="ch-title">Hormony v perimenopauze — co se skutečně děje</div>
+    <div class="ch-lead">Abyste mohla přirozeně ovlivnit, co se děje ve vašem těle, musíte nejdřív pochopit, proč se to děje.</div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-icon">🌸</div>
+      <h4>Estrogen</h4>
+      <p>Hlavní ženský hormon. V perimenopauze neklesá lineárně — <strong>kolísá dramaticky</strong>. Tento vzorec kolísání způsobuje většinu příznaků: od návalů horka po výkyvy nálad a mozková mlha.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌿</div>
+      <h4>Progesteron</h4>
+      <p>Klesá jako <strong>první</strong>, ještě před estrogenem. Progesteron je přirozený anxiolytikum a sedativum — jeho pokles způsobuje úzkost, podrážděnost a narušený spánek.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <h4>Kortizol</h4>
+      <p>Stresový hormon. V perimenopauze se citlivost na stres zvyšuje — kortizol pak dále <strong>interferuje s pohlavními hormony</strong> a zhoršuje příznaky. Proto je stres v tomto období tak devastující.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔬</div>
+      <h4>Inzulin</h4>
+      <p>Citlivost na inzulin se snižuje. Tělo začíná jinak zpracovávat cukry a ukládat tuk — hlavně na <strong>břiše</strong>. Proto nefungují staré diety a omezeníkteré dříve fungovaly.</p>
+    </div>
+  </div>
+
+  <h2>Hormonální kaskáda — proč příznaky "přeskakují"</h2>
+  <p>V perimenopauze nejde o jednoduché klesání hormonů. Estrogen může jeden týden být velmi vysoký a druhý týden klesnout na velmi nízké hodnoty. Toto kolísání — ne samotné nízké hodnoty — způsobuje většinu příznaků. Proto příznaky přicházejí ve vlnách a jsou tak nepředvídatelné.</p>
+
+  <div class="hl-box hl-gold">
+    <div class="title">Klíčový poznatek z naturopatie</div>
+    <p>Nadledviny jsou záložní výrobnou pohlavních hormonů. Pokud jsou chronicky přetížené stresem, nemohou tuto funkci plnit. Proto je <strong>podpora nadledvin</strong> — přes výživu, adaptogeny a stres management — jedním z nejdůležitějších kroků v perimenopauze.</p>
+  </div>
+</div>
+
+<!-- CHAPTER 3 -->
+<div class="chapter">
+  <div class="ch-header">
+    <div class="ch-num">Kapitola 03</div>
+    <div class="ch-title">10 nejčastějších příznaků a jejich přirozená řešení</div>
+    <div class="ch-lead">Každý příznak má svou biochemickou příčinu — a každou příčinu lze přirozeně ovlivnit.</div>
+  </div>
+
+  <table class="data">
+    <tr>
+      <th>Příznak</th>
+      <th>Hlavní příčina</th>
+      <th>Přirozené řešení</th>
+    </tr>
+    <tr>
+      <td><strong>Návaly horka</strong></td>
+      <td>Kolísání estrogenů → hypotalamus reaguje chybnou tepelnou regulací</td>
+      <td>Lněné semínko, šalvěj, Red clover, chlazení tělesné teploty</td>
+    </tr>
+    <tr>
+      <td><strong>Narušený spánek</strong></td>
+      <td>Pokles progesteronu + noční pocení</td>
+      <td>Magnézium glycinát před spaním, cirkadiánní rytmus, ashwagandha</td>
+    </tr>
+    <tr>
+      <td><strong>Mozková mlha</strong></td>
+      <td>Pokles estrogenů ovlivňuje neuroplasticitu + mozek tvoří vlastní estrogeny</td>
+      <td>Omega-3, B vitaminy, silový trénink, přerušovaný půst (opatrně)</td>
+    </tr>
+    <tr>
+      <td><strong>Výkyvy nálad</strong></td>
+      <td>Pokles progesteronu + narušení serotoninu a GABA</td>
+      <td>Ashwagandha, rhodiola, pravidelný pohyb, magnézium</td>
+    </tr>
+    <tr>
+      <td><strong>Přibývání na břiše</strong></td>
+      <td>Snížená citlivost na inzulin + kortizol → ukládání viscerálního tuku</td>
+      <td>Stabilizace krevního cukru, silový trénink, redukce cukrů</td>
+    </tr>
+    <tr>
+      <td><strong>Únava</strong></td>
+      <td>Mitochondriální dysfunkce + přetížené nadledviny</td>
+      <td>CoQ10, Vitamin D, B12, adaptogeny, regulace kortizolu</td>
+    </tr>
+    <tr>
+      <td><strong>Bolesti kloubů</strong></td>
+      <td>Pokles estrogenu → snížení protizánětlivé ochrany</td>
+      <td>Omega-3, kurkumin, kolagen, pohyb, redukce zánětlivých potravin</td>
+    </tr>
+    <tr>
+      <td><strong>Suchá pokožka & vlasy</strong></td>
+      <td>Pokles estrogenů a kolagenu + snížená produkce kožního mazu</td>
+      <td>Kolagen peptidy, Vitamin C, zdravé tuky, hydrát</td>
+    </tr>
+    <tr>
+      <td><strong>Snížené libido</strong></td>
+      <td>Pokles estrogenů a testosteronu + únava + sucho</td>
+      <td>Maca, zinek, Vitamin D, L-arginin, péče o vztah</td>
+    </tr>
+    <tr>
+      <td><strong>Nepravidelné cykly</strong></td>
+      <td>Anovulační cykly + kolísání estrogenů</td>
+      <td>Vitex (Chasteberry), lněné semínko, redukce stresu, sledování cyklu</td>
+    </tr>
+  </table>
+</div>
+
+<!-- CHAPTER 4 -->
+<div class="chapter">
+  <div class="ch-header">
+    <div class="ch-num">Kapitola 04</div>
+    <div class="ch-title">Výživa v perimenopauze — co jíst a co se vyhnout</div>
+    <div class="ch-lead">Výživa v perimenopauze není o kalorickém deficitu. Je o signalizaci — o tom, jaké zprávy posíláte svým buňkám a hormonům.</div>
+  </div>
+
+  <h2>Fytoestrogeny — přirozená hormonální podpora</h2>
+  <p>Fytoestrogeny jsou rostlinné sloučeniny, které se v těle váží na estrogenové receptory a mírně modulují hormonální aktivitu. Jejich efekt závisí na množství a individuálním mikrobiomu — proto je důležité je konzumovat pravidelně, ne sporadicky.</p>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-icon">🌰</div>
+      <h4>Lněné semínko</h4>
+      <p>Nejsilnější zdroj lignanů. 2 lžíce mletého lnu denně — přidejte do jogurtu, smoothie nebo ovesné kaše.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌿</div>
+      <h4>Sója & edamame</h4>
+      <p>Obsahuje isoflavony (genistein, daidzein). Volte fermentovanou — tempeh, miso. Minimálně 25 g sójového proteinu denně.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🥦</div>
+      <h4>Brukvová zelenina</h4>
+      <p>Brokolice, kapusta, zelí — obsahují DIM (diindolylmetan), který podporuje zdravý metabolismus estrogenu.</p>
+    </div>
+  </div>
+
+  <h2>Stabilizace krevního cukru — základ všeho</h2>
+  <p>V perimenopauze je stabilizace glykemie <strong>priorita číslo jedna</strong>. Každý výkyv krevního cukru spouští kortizol, který dále destabilizuje pohlavní hormony. Praktická pravidla:</p>
+
+  <ul class="custom">
+    <li><strong>Protein jako první</strong> — každé jídlo začněte zdrojem bílkovin (vejce, maso, ryby, luštěniny)</li>
+    <li><strong>Vláknina s každým jídlem</strong> — zelenina, chia semínka, lněné semínko zpomalují vstřebávání cukrů</li>
+    <li><strong>Zdravé tuky dohromady s sacharidy</strong> — olej v salátu, avokádo k chlebu</li>
+    <li><strong>Nedovolte si přijít k vlčímu hladu</strong> — každé 4–5 hodin malé jídlo s proteinem</li>
+    <li><strong>Večeře do 19:00</strong> — 12–14 hodinový noční půst podporuje opravy buněk</li>
+  </ul>
+
+  <h2>Co omezit nebo vyloučit</h2>
+  <div class="grid-2">
+    <div class="hl-box hl-rose">
+      <div class="title">Zhoršují příznaky</div>
+      <p><strong>Alkohol</strong> — i malé množství zesiluje návaly horka a narušuje spánek<br><strong>Cukr & rafinované sacharidy</strong> — destabilizují glykemii a zvyšují zánět<br><strong>Kofein nadbytek</strong> — zesiluje úzkost a návaly<br><strong>Zpracované potraviny</strong> — omega-6 nerovnováha, skryté cukry</p>
+    </div>
+    <div class="hl-box hl-green">
+      <div class="title">Výrazně pomáhají</div>
+      <p><strong>Omega-3</strong> — tučné ryby 3×/týden nebo kvalitní supplement<br><strong>Hořčík</strong> — listová zelenina, dýňová semínka, hořká čokoláda<br><strong>Vitamin D</strong> — sluneční záření, tučné ryby, supplement v zimě<br><strong>Fermentované potraviny</strong> — kefír, kimchi, tempeh pro mikrobiom</p>
+    </div>
+  </div>
+
+  <div class="hl-box hl-gold">
+    <div class="title">Praktický tip od Veroniky</div>
+    <p>Nezačínejte ráno kávou na lačno. Nejdřív sklenice vody s citronem, pak proteinová snídaně. Káva až po snídani. Tato jednoduchá změna stabilizuje kortizol po celý den a výrazně snižuje odpolední únavu a chutě na sladké.</p>
+  </div>
+</div>
+
+<!-- CHAPTER 5 -->
+<div class="chapter">
+  <div class="ch-header">
+    <div class="ch-num">Kapitola 05</div>
+    <div class="ch-title">Biohacking pro ženy ve 40+ — 5 klíčových protokolů</div>
+    <div class="ch-lead">Biohacking v perimenopauze neznamená extrémní technologie. Znamená vědomou práci s přirozenými mechanismy těla — světlem, teplotou, rytmem, dechem.</div>
+  </div>
+
+  <div class="pillar">
+    <h3>Protokol 1: Cirkadiánní rytmus — základ hormonální synchronizace</h3>
+    <p>Každý hormon v těle se řídí cirkadiánním rytmem. Narušený rytmus přímo destabilizuje hormonální osu. Nejjednodušší biohacking, který můžete udělat: <strong>ráno na přirozené sluneční světlo do 30 minut po probuzení</strong> (i v zamračený den), a <strong>večer po 20:00 minimalizovat modré světlo</strong>.</p>
+    <p>Efekt: zlepšení spánku do 2 týdnů, stabilnější kortizol, lepší melatonin.</p>
+  </div>
+
+  <div class="pillar">
+    <h3>Protokol 2: Cold exposure — aktivace hnědého tuku a dopaminu</h3>
+    <p>Studená sprcha (30–60 sekund na konci) nebo ledová koupel aktivuje hnědý tukový tisk, zvyšuje norepinefrin (lepší nálada, soustředění) a zlepšuje citlivost na inzulin. <strong>Začněte 30 sekundami studené vody po teplé sprše</strong> — třikrát týdně.</p>
+    <p>Pozor: v době silných návalů horka je vhodné konzultovat s odborníkem.</p>
+  </div>
+
+  <div class="pillar">
+    <h3>Protokol 3: Dechová práce — přímá regulace nervového systému</h3>
+    <p>Dech je jediný vědomě ovladatelný systém autonomního nervového systému. <strong>Technika 4-7-8:</strong> nádech 4 sekundy, zadržení 7 sekund, výdech 8 sekund. 4 cykly před spaním. Aktivuje parasympatikus a snižuje kortizol.</p>
+  </div>
+
+  <div class="pillar">
+    <h3>Protokol 4: Red Light Therapy — mitochondrie a pokožka</h3>
+    <p>Terapie červeným světlem (630–850 nm) stimuluje mitochondriální funkci, podporuje produkci kolagenu a zlepšuje spánek (zvyšuje melatonin). 10–20 minut denně ráno nebo večer. Dostupné domácí zařízení od 3–8 tisíc Kč.</p>
+  </div>
+
+  <div class="pillar">
+    <h3>Protokol 5: Sledování dat — co nelze změřit, nelze zlepšit</h3>
+    <p>Minimální biohackingový stack pro perimenopauzu: <strong>chytré hodinky nebo prsten</strong> (Oura, Garmin) pro sledování spánku, HRV a tělesné teploty. Data vám pomohou vidět vliv konkrétních potravin, stresu nebo suplementů na vaše tělo.</p>
+  </div>
+</div>
+
+<!-- CHAPTER 6 -->
+<div class="chapter">
+  <div class="ch-header">
+    <div class="ch-num">Kapitola 06</div>
+    <div class="ch-title">Pohyb a svalová hmota — proč je to jinak než dřív</div>
+    <div class="ch-lead">V perimenopauze se mění odpověď těla na pohyb. Co dříve fungovalo, může nyní nepomáhat nebo dokonce škodit. Klíčem je pochopit proč.</div>
+  </div>
+
+  <p>Estrogen hraje klíčovou roli v budování a udržování svalové hmoty. S jeho poklesem začíná tzv. <strong>sarkopenie</strong> — přirozená ztráta svalové hmoty. Od 40 let ztrácíme průměrně 0,5–1 % svalové hmoty ročně, pokud nic neděláme. Svalová hmota je přitom metabolicky aktivní tkáň — chránínaší kosti, metabolismus a hormonální rovnováhu.</p>
+
+  <div class="grid-2">
+    <div class="hl-box hl-green">
+      <div class="title">Co v perimenopauze funguje</div>
+      <p><strong>Silový trénink 2–3× týdně</strong> — multi-kloubní cvičení (dřepy, mrtvé tahy, bench press). Nenahraditelné pro svalovou hmotu a zdraví kostí.<br><br><strong>Chůze 7 000–10 000 kroků denně</strong> — snižuje kortizol, stabilizuje glykemii.<br><br><strong>Jóga a strečink 1–2× týdně</strong> — regulace nervového systému, flexibilita.</p>
+    </div>
+    <div class="hl-box hl-rose">
+      <div class="title">Co v perimenopauze nefunguje (nebo je nutná opatrnost)</div>
+      <p><strong>Excesivní kardio</strong> — dlouhé běhy nebo spinning denně zvyšují kortizol a mohou zhoršit hormonální nerovnováhu.<br><br><strong>Trénink na lačno</strong> — v perimenopauze může nadměrně aktivovat stresovou osu.<br><br><strong>Přetrenovanost bez regenerace</strong> — tělo se zotavuje pomaleji, potřebuje více času.</p>
+    </div>
+  </div>
+
+  <div class="hl-box hl-gold">
+    <div class="title">Zlaté pravidlo pohybu v perimenopauze</div>
+    <p>Pokud po cvičení cítíte extrémní únavu trvající více než 24 hodin, nebo se příznaky zhoršily — je to signál, že trénink byl příliš intenzivní. Začněte méně a postupně přidávejte. Silový trénink 2× týdně plus chůze je lepší start než 5× týdně intenzivní kardio.</p>
+  </div>
+</div>
+
+<!-- CHAPTER 7 -->
+<div class="chapter">
+  <div class="ch-header">
+    <div class="ch-num">Kapitola 07</div>
+    <div class="ch-title">Suplementace v perimenopauze — co skutečně funguje</div>
+    <div class="ch-lead">Suplementy nejsou náhradou výživy — jsou její doplněk. Ale v perimenopauze, kdy se mění absorpce živin i jejich potřeba, mohou být klíčovým nástrojem.</div>
+  </div>
+
+  <table class="data">
+    <tr>
+      <th>Suplement</th>
+      <th>Dávka</th>
+      <th>Hlavní přínos v perimenopauze</th>
+      <th>Kdy brát</th>
+    </tr>
+    <tr>
+      <td><strong>Magnézium glycinát</strong></td>
+      <td>300–400 mg</td>
+      <td>Spánek, svalové napětí, úzkost, regulace kortizolu</td>
+      <td>Večer, 1 hod. před spaním</td>
+    </tr>
+    <tr>
+      <td><strong>Vitamin D3 + K2</strong></td>
+      <td>2 000–4 000 IU D3 / 100 μg K2</td>
+      <td>Zdraví kostí, imunita, nálada, hormonální rovnováha</td>
+      <td>Ráno s jídlem</td>
+    </tr>
+    <tr>
+      <td><strong>Omega-3 (EPA + DHA)</strong></td>
+      <td>2–3 g EPA+DHA denně</td>
+      <td>Protizánětlivý efekt, mozek, klouby, kardiovaskulární zdraví</td>
+      <td>S jídlem</td>
+    </tr>
+    <tr>
+      <td><strong>Ashwagandha (KSM-66)</strong></td>
+      <td>300–600 mg</td>
+      <td>Kortizol, stres, spánek, energie, libido</td>
+      <td>Večer nebo ráno</td>
+    </tr>
+    <tr>
+      <td><strong>Kolagen peptidy (typ I&amp;III)</strong></td>
+      <td>10–15 g</td>
+      <td>Pokožka, klouby, vlasy, střevní sliznice</td>
+      <td>Ráno nebo po tréninku</td>
+    </tr>
+    <tr>
+      <td><strong>Vitex agnus-castus</strong></td>
+      <td>20–40 mg extraktu</td>
+      <td>Regulace cyklu, PMS, prolaktin — raná perimenopauza</td>
+      <td>Ráno nalačno</td>
+    </tr>
+    <tr>
+      <td><strong>Maca</strong></td>
+      <td>1,5–3 g</td>
+      <td>Libido, energie, vyrovnávání hormonů, nálada</td>
+      <td>Ráno s jídlem</td>
+    </tr>
+  </table>
+
+  <div class="hl-box hl-rose">
+    <div class="title">Důležité upozornění</div>
+    <p>Před zahájením suplementace doporučuji otestovat aktuální hladiny — zejména Vitaminu D, magnézia a omega-3 indexu. Suplementace bez znalosti aktuálního stavu může být neefektivní nebo zbytečně nákladná. Na základě výsledků testu nastavím individuální protokol přesně pro vás.</p>
+  </div>
+</div>
+
+<!-- CHAPTER 8 -->
+<div class="chapter">
+  <div class="ch-header">
+    <div class="ch-num">Kapitola 08</div>
+    <div class="ch-title">Stres, nervový systém a emoční zdraví</div>
+    <div class="ch-lead">V perimenopauze není "jen stres". Je to konkrétní biologický mechanismus, který destabilizuje hormonální rovnováhu. Porozumění tomuto mechanismu je první krok k jeho zvládnutí.</div>
+  </div>
+
+  <p>Osa HPA (hypotalamus — hypofýza — nadledviny) reguluje reakci na stres. V perimenopauze se tato osa stává hypersenzitivní — tělo reaguje na menší stresory intenzivněji. Výsledkem je <strong>chronicky zvýšený kortizol</strong>, který blokuje progesteronové receptory, destabilizuje glykemii a zhoršuje spánek.</p>
+
+  <h2>Praktické techniky pro nervový systém</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-icon">🌬️</div>
+      <h4>Dechová práce</h4>
+      <p>Fyziol. prodloužení výdechu aktivuje parasympatikus. Technika 4-7-8 nebo prodloužený výdech (nádech 4s, výdech 8s) — 5 minut dvakrát denně.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧘</div>
+      <h4>Meditace a mindfulness</h4>
+      <p>10 minut denně snižuje kortizol o 20–30 %. Aplikace Headspace, Insight Timer nebo jednoduše sezení v tichu s fokusem na dech.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌳</div>
+      <h4>Příroda a forest bathing</h4>
+      <p>90 minut v přírodě snižuje aktivitu prefrontálního kortexu spojeného s ruminací. Japonská studie prokázala 50 % pokles kortizolu.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">✍️</div>
+      <h4>Journaling</h4>
+      <p>10 minut večerního psaní snižuje anxietu a zlepšuje spánek. Psát o tom, za co jste vděční, nebo "brain dump" — vše z hlavy na papír.</p>
+    </div>
+  </div>
+
+  <div class="hl-box hl-green">
+    <div class="title">Emoční zdraví v perimenopauze — naturopatický pohled</div>
+    <p>Výkyvy nálad, podrážděnost nebo smutek v perimenopauze nejsou "psychické problémy". Jsou to přímé biochemické důsledky hormonálních změn. Nepotlačujte je léky, dokud nevyzkoušíte přirozené přístupy. Magnézium, ashwagandha, pravidelný pohyb a kvalitní spánek změní situaci pro 70–80 % žen v rané a střední perimenopauze.</p>
+  </div>
+</div>
+
+<!-- CHAPTER 9 -->
+<div class="chapter">
+  <div class="ch-header">
+    <div class="ch-num">Kapitola 09</div>
+    <div class="ch-title">Váš 30denní startovací plán</div>
+    <div class="ch-lead">Nemusíte změnit vše najednou. Výzkum ukazuje, že udržitelné změny přichází, když přidáváte po jednom — ne když radikálně přeorganizujete celý život přes noc.</div>
+  </div>
+
+  <div class="checklist">
+    <h4>Týden 1 — Základ: Spánek a ranní rutina</h4>
+    <div class="check-item"><div class="check-box"></div>Jít spát každý den ve stejnou dobu (±30 min)</div>
+    <div class="check-item"><div class="check-box"></div>Ráno ven do světla do 30 min po probuzení (5–10 min)</div>
+    <div class="check-item"><div class="check-box"></div>Začít brát magnézium glycinát 300 mg večer</div>
+    <div class="check-item"><div class="check-box"></div>Telefon ze ložnice — nabíjejte ho mimo</div>
+    <div class="check-item"><div class="check-box"></div>Sklenice vody ráno před kávou</div>
+  </div>
+
+  <div class="checklist">
+    <h4>Týden 2 — Výživa: Stabilizace krevního cukru</h4>
+    <div class="check-item"><div class="check-box"></div>Přidat 2 lžíce mletého lněného semínka denně</div>
+    <div class="check-item"><div class="check-box"></div>Každé jídlo začít proteinem (vajíčka, jogurt, maso, luštěniny)</div>
+    <div class="check-item"><div class="check-box"></div>Omezit cukry a slazené nápoje — nahradit vodou nebo bylinkovým čajem</div>
+    <div class="check-item"><div class="check-box"></div>Přidat brukvovou zeleninu 3× v týdnu</div>
+    <div class="check-item"><div class="check-box"></div>Večeřet nejpozději v 19:00</div>
+  </div>
+
+  <div class="checklist">
+    <h4>Týden 3 — Pohyb: Silový trénink a chůze</h4>
+    <div class="check-item"><div class="check-box"></div>2× silový trénink (i doma — dřepy, výpady, kliky)</div>
+    <div class="check-item"><div class="check-box"></div>7 000 kroků denně — nastavit připomenutí v telefonu</div>
+    <div class="check-item"><div class="check-box"></div>Po tréninku proteinové jídlo do 30 minut</div>
+    <div class="check-item"><div class="check-box"></div>1× jóga nebo strečink pro nervový systém</div>
+  </div>
+
+  <div class="checklist">
+    <h4>Týden 4 — Stres a nervový systém</h4>
+    <div class="check-item"><div class="check-box"></div>5 minut dechového cvičení ráno nebo večer</div>
+    <div class="check-item"><div class="check-box"></div>Přidat ashwagandhu 300 mg (KSM-66)</div>
+    <div class="check-item"><div class="check-box"></div>10 minut v přírodě každý den bez telefonu</div>
+    <div class="check-item"><div class="check-box"></div>Zapsat 3 věci za které jste vděčné každý večer</div>
+    <div class="check-item"><div class="check-box"></div>Zkontrolovat a vyhodnotit první 3 týdny — co funguje?</div>
+  </div>
+</div>
+
+<!-- CHAPTER 10 -->
+<div class="chapter">
+  <div class="ch-header">
+    <div class="ch-num">Kapitola 10</div>
+    <div class="ch-title">Kdy vyhledat odbornou pomoc — diagnostické testy</div>
+    <div class="ch-lead">Přirozené přístupy mají své limity. Někdy jsou příznaky natolik intenzivní, nebo přetrvávají natolik dlouho, že potřebujete přesnější diagnostiku.</div>
+  </div>
+
+  <h2>Testy funkční medicíny, které doporučuji</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-icon">🧬</div>
+      <h4>DUTCH hormonální test</h4>
+      <p>Detailní analýza pohlavních hormonů a stresové osy z moči. Zmapuje přesně vaši hormonální situaci — hladiny, metabolity a vzorce. Základ pro individuální naturopatický protokol.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">💩</div>
+      <h4>Analýza mikrobiomu</h4>
+      <p>Střevo a hormony jsou neoddělitelně propojeny. Estrobolom — střevní bakterie zodpovědné za metabolismus estrogenu — přímo ovlivňuje hormonální rovnováhu.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🩸</div>
+      <h4>Komplexní krevní testy</h4>
+      <p>Vitamin D, železo, ferritin, thyroid panel (TSH, T3, T4, Anti-TPO), Omega-3 index, hsCRP (zánět), HbA1c (glykemie). Základ pro personalizovanou suplementaci.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🕐</div>
+      <h4>Test biologického věku</h4>
+      <p>TruAge methylace DNA — zjistíte svůj skutečný biologický věk a rychlost biologického stárnutí. Skvělý výchozí bod pro longevity protokol.</p>
+    </div>
+  </div>
+
+  <div class="hl-box hl-green">
+    <div class="title">Kdy okamžitě vyhledat lékaře</div>
+    <p>Silné krvácení trvající déle než 7 dní · Krvácení po 12 měsících bez menstruace · Deprese nebo úzkost vyžadující okamžitou pomoc · Silné bolesti nebo jiné neznámé příznaky. Naturopatický přístup doplňuje, ne nahrazuje, konvenční lékařskou péči.</p>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <h3>Chcete individuální plán pro vaši situaci?</h3>
+    <p>Na základě vašich příznaků, zdravotní anamnézy a případně laboratorních testů sestavím konkrétní výživový a biohackingový protokol přesně pro vás. Bez obecných rad. Bez diet. V souladu s vaší biologií.</p>
+    <a href="https://www.body-spirit.cz/cz/konzultace/" class="btn-cta">Objednat konzultaci zdarma (20 min) →</a>
+    <div class="cta-sub">Online nebo osobně · Olomouc · Bez závazku</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  <span>© 2025 Bc. Veronika Topičová, MBA · Healthy Body Healthy Spirit</span>
+  <a href="https://www.body-spirit.cz/cz/">body-spirit.cz</a>
+</div>
+
+</div><!-- .page -->
+</body>
+</html>
