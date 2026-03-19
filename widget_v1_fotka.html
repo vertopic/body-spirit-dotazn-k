@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:transparent;height:auto;overflow-x:hidden;}
+
+  .ec-wrap{
+    width:100%;margin:0;padding:0;
+    background:rgba(15,40,25,0.78);
+  }
+  .ec-inner{position:relative;z-index:1;padding:3.5rem 3rem 3rem;max-width:100%;}
+
+  .ec-badge{
+    display:inline-block;font-family:'Raleway',sans-serif;
+    font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+    margin-bottom:1.1rem;padding-bottom:4px;
+    color:#c8962e;border-bottom:1px solid rgba(200,150,46,0.45);
+  }
+  .ec-title{
+    font-family:'Cormorant Garamond',Georgia,serif;
+    font-size:clamp(2rem,4.5vw,3rem);font-weight:500;
+    line-height:1.18;margin-bottom:1rem;color:#fff;
+  }
+  .ec-title em{font-style:italic;font-weight:400;color:#c8962e;}
+  .ec-sub{
+    font-family:'Raleway',sans-serif;font-size:1.05rem;
+    font-weight:400;line-height:1.75;margin-bottom:1.8rem;
+    color:rgba(255,255,255,0.88);
+  }
+  .ec-sub strong{color:#fff;font-weight:600;}
+
+  .ec-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:2rem;}
+  .ec-item{
+    display:flex;align-items:flex-start;gap:.65rem;
+    font-family:'Raleway',sans-serif;font-size:.97rem;
+    font-weight:400;line-height:1.5;color:rgba(255,255,255,0.88);
+  }
+  .ec-item strong{color:#fff;font-weight:600;}
+  .ec-dot{
+    width:26px;height:26px;border-radius:50%;
+    background:rgba(200,150,46,0.25);border:1px solid rgba(200,150,46,0.45);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;font-size:12px;margin-top:2px;
+  }
+
+  .ec-form{
+    display:flex;flex-direction:row;gap:.8rem;
+    margin-bottom:.8rem;flex-wrap:nowrap;align-items:center;
+  }
+  .ec-input{
+    flex:1;min-width:0;height:54px;border-radius:4px;
+    font-family:'Raleway',sans-serif;font-size:1rem;
+    padding:0 1.4rem;outline:none;
+    border:1.5px solid rgba(255,255,255,0.3);
+    background:rgba(255,255,255,0.1);color:#fff;
+    transition:border-color .2s,background .2s;
+    -webkit-appearance:none;
+  }
+  .ec-input::placeholder{color:rgba(255,255,255,0.45);}
+  .ec-input:focus{border-color:#c8962e;background:rgba(255,255,255,0.15);}
+
+  .ec-btn{
+    height:54px;border:none;border-radius:4px;padding:0 2rem;
+    font-family:'Raleway',sans-serif;font-size:.95rem;
+    font-weight:600;letter-spacing:.05em;cursor:pointer;
+    white-space:nowrap;flex-shrink:0;
+    background:#c8962e;color:#fff;
+    transition:background .2s,transform .15s;
+    -webkit-appearance:none;
+  }
+  .ec-btn:hover{background:#a87820;transform:translateY(-1px);}
+  .ec-btn:active{transform:scale(.98);}
+  .ec-btn:disabled{opacity:.7;cursor:default;transform:none;}
+
+  .ec-gdpr{
+    font-family:'Raleway',sans-serif;font-size:.78rem;
+    line-height:1.6;color:rgba(255,255,255,0.5);
+  }
+  .ec-gdpr a{color:rgba(200,150,46,0.75);text-decoration:underline;}
+
+  .ec-error{
+    display:none;color:#ffb4b4;
+    font-family:'Raleway',sans-serif;font-size:.88rem;margin:.4rem 0;
+  }
+
+  .ec-ok{
+    display:none;text-align:center;padding:2.2rem 2rem;border-radius:4px;
+    background:rgba(255,255,255,0.1);border:1px solid rgba(200,150,46,0.3);
+  }
+  .ec-ok-icon{font-size:2.8rem;margin-bottom:.9rem;}
+  .ec-ok h3{
+    font-family:'Cormorant Garamond',Georgia,serif;
+    font-size:2rem;font-weight:500;color:#fff;margin-bottom:.5rem;
+  }
+  .ec-ok p{font-family:'Raleway',sans-serif;font-size:1rem;line-height:1.7;color:rgba(255,255,255,0.88);}
+
+  /* Skrytý iframe pro CORS fallback */
+  #mlFrame{display:none;width:0;height:0;border:none;}
+
+  @media(max-width:600px){
+    .ec-inner{padding:2rem 1.4rem 1.8rem;}
+    .ec-grid{grid-template-columns:1fr;gap:.55rem;}
+    .ec-form{flex-direction:column;}
+    .ec-input{width:100%;font-size:16px;}
+    .ec-btn{width:100%;height:52px;}
+    .ec-title{font-size:1.9rem;}
+    .ec-sub{font-size:.97rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="ec-wrap">
+  <div class="ec-inner">
+
+    <p class="ec-badge">Zdarma · Okamžité stažení</p>
+
+    <h2 class="ec-title">
+      Dva průvodce, které změní<br>
+      <em>váš přístup ke zdraví</em>
+    </h2>
+
+    <p class="ec-sub">
+      Zadejte email a okamžitě dostanete
+      <strong>Průvodce perimenopauzou</strong> a
+      <strong>Biohacking průvodce</strong> — vědecky podložené materiály
+      z pohledu funkční medicíny.
+    </p>
+
+    <div class="ec-grid">
+      <div class="ec-item">
+        <div class="ec-dot">📖</div>
+        <div><strong>Průvodce perimenopauzou</strong><br>hormony, příznaky, protokoly</div>
+      </div>
+      <div class="ec-item">
+        <div class="ec-dot">⚡</div>
+        <div><strong>Biohacking průvodce</strong><br>spánek, mikrobiom, longevity</div>
+      </div>
+      <div class="ec-item">
+        <div class="ec-dot">✓</div>
+        <div>Okamžité zaslání na email</div>
+      </div>
+      <div class="ec-item">
+        <div class="ec-dot">✓</div>
+        <div>Odhlásit se můžete kdykoliv</div>
+      </div>
+    </div>
+
+    <div id="formWrap">
+      <div class="ec-form">
+        <input
+          type="email" id="ecEmail" class="ec-input"
+          placeholder="váš@email.cz"
+          autocomplete="email" inputmode="email"
+        />
+        <button class="ec-btn" id="ecBtn" onclick="go()">
+          Chci průvodce zdarma →
+        </button>
+      </div>
+      <p class="ec-error" id="ecErr"></p>
+      <p class="ec-gdpr">
+        Odesláním souhlasíte se zpracováním e-mailové adresy pro zasílání
+        průvodců a newsletteru body-spirit.cz. Odhlásit se můžete kdykoliv
+        jedním kliknutím.
+        <a href="/gdpr" target="_blank">Zásady ochrany soukromí.</a>
+      </p>
+    </div>
+
+    <div class="ec-ok" id="ecOk">
+      <div class="ec-ok-icon">✉️</div>
+      <h3>Průvodce jsou na cestě!</h3>
+      <p>
+        Zkontrolujte svůj inbox — oba průvodce vám přijdou do pár minut.<br>
+        Pokud email nevidíte, zkontrolujte složku
+        <strong>Spam</strong> nebo <strong>Hromadné</strong>.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+var KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiMWY4ZWE2MGE5YWYyM2M5NTU2ZGNmOWRmZWU0ODExNDA0MTQ0YzkyYjU3YmQ0MmU2ODlmMTRmYjYyN2E5ZDJhMzMyNDUwYjJjZDMzNjAxMDciLCJpYXQiOjE3NzM4NDUwODkuOTE1NDY4LCJuYmYiOjE3NzM4NDUwODkuOTE1NDcsImV4cCI6NDkyOTUxODY4OS45MTEzOSwic3ViIjoiMjIxNjc3OCIsInNjb3BlcyI6W119.EtMJCfexu6oH6X4Fake5XyMVBucPPzSUIIBGO2Mzb9JTpihx7U7G2-wvfJyqvmgt8KzJB6Dfu3KWiwmCpGg4Qb2cvqhi_5Zy0qg5GavpelDdz93_3BNe-yIj4M40rlOKg43Wu629JFUTS1raScWGoGIsT0y5R78QrcRk594V19eaNzfySXpOa0z3n_oAlt6QNS42MVCa4-PrTFgGmNBw1asLxSH_ZbZNlzlBtJAlo_ySLwgOFTmyG_usJuzhsma7zRY8uF9HYvEMb9gNE8Rk50dlnxp5owfb0axVHN-FT9DCG-ADbAivTB9tQjTx3n1zAY93Rsmun50m-MWoAbBNS_zPiJMqJMsd5hQLDnwgDF5_e0TgMsl_YPKCIqGnA-4hBJnx-xu0dL7O93z7LIXQG-McQ2tCvGLDGqjMTu5-Vyb_E6hyzzQVzV7ik0s12LRArVLQ22Bzfohb_dDdo9qD89RrhlSa4WBdxkD1vKGLpR42zmHAPbndlrIoBT7PH9UgBuRJNBl446mQgqKKUv1fPyUGuyzmrRS3u-NzKyFCj4WVxgwywExMinICzQt2s1Ep-cUdYxlM4Jz8lyiioqH_o9IlmB3ShqGEFZd--Gfr3O8GmHFH_4DnceoGv_dVmels8kr6MSDUNERHKg8pCA8Zf4NQ50eNF-rE3Dr6-4FZK30';
+var GID = '182289656591680997';
+
+function go() {
+  var email = document.getElementById('ecEmail').value.trim();
+  var btn   = document.getElementById('ecBtn');
+  var err   = document.getElementById('ecErr');
+
+  // Validace emailu
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    err.textContent = 'Prosím zadejte platnou emailovou adresu.';
+    err.style.display = 'block';
+    return;
+  }
+  err.style.display = 'none';
+  btn.disabled = true;
+  btn.textContent = 'Odesílám…';
+
+  // Pokus 1: přímé API volání
+  fetch('https://connect.mailerlite.com/api/subscribers', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + KEY,
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({ email: email, groups: [GID] })
+  })
+  .then(function(r) {
+    if (r.status === 200 || r.status === 201) {
+      // Úspěch přes API
+      done();
+    } else if (r.status === 422) {
+      // Email už existuje v MailerLite — stále zobrazíme úspěch
+      done();
+    } else {
+      // Jiná chyba — zkusíme záložní metodu
+      fallback(email);
+    }
+  })
+  .catch(function(corsErr) {
+    // CORS chyba — použijeme záložní metodu přes skrytý form
+    console.log('CORS fallback:', corsErr);
+    fallback(email);
+  });
+}
+
+function fallback(email) {
+  // Záložní metoda: odeslání přes skrytý formulář
+  // MailerLite embedded form URL — funguje bez CORS omezení
+  var form = document.createElement('form');
+  form.method = 'POST';
+  form.action = 'https://assets.mailerlite.com/jsonp/182289656591680997/forms/subscribe';
+  form.target = 'mlFallbackFrame';
+  form.style.display = 'none';
+
+  var emailField = document.createElement('input');
+  emailField.type = 'hidden';
+  emailField.name = 'fields[email]';
+  emailField.value = email;
+  form.appendChild(emailField);
+
+  var groupField = document.createElement('input');
+  groupField.type = 'hidden';
+  groupField.name = 'ml-submit';
+  groupField.value = '1';
+  form.appendChild(groupField);
+
+  // Vytvoříme cílový iframe pro form submit
+  var iframe = document.getElementById('mlFallbackFrame');
+  if (!iframe) {
+    iframe = document.createElement('iframe');
+    iframe.name = 'mlFallbackFrame';
+    iframe.id = 'mlFallbackFrame';
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+  }
+
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
+
+  // Zobrazíme úspěch po krátkém čekání
+  setTimeout(done, 800);
+}
+
+function done() {
+  document.getElementById('formWrap').style.display = 'none';
+  document.getElementById('ecOk').style.display   = 'block';
+  sendH();
+}
+
+document.getElementById('ecEmail').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') { e.preventDefault(); go(); }
+});
+
+function sendH() {
+  window.parent.postMessage(
+    { type: 'resize', height: document.documentElement.scrollHeight }, '*'
+  );
+}
+window.addEventListener('load', sendH);
+window.addEventListener('resize', sendH);
+setTimeout(sendH, 300);
+setTimeout(sendH, 900);
+setTimeout(sendH, 1800);
+</script>
+
+</body>
+</html>
