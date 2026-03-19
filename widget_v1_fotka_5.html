@@ -186,3 +186,85 @@
         <strong>Spam</strong> nebo <strong>Hromadné</strong>.
       </p>
     </div>
+
+  </div>
+</div>
+
+<script>
+var KEY='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiMWY4ZWE2MGE5YWYyM2M5NTU2ZGNmOWRmZWU0ODExNDA0MTQ0YzkyYjU3YmQ0MmU2ODlmMTRmYjYyN2E5ZDJhMzMyNDUwYjJjZDMzNjAxMDciLCJpYXQiOjE3NzM4NDUwODkuOTE1NDY4LCJuYmYiOjE3NzM4NDUwODkuOTE1NDcsImV4cCI6NDkyOTUxODY4OS45MTEzOSwic3ViIjoiMjIxNjc3OCIsInNjb3BlcyI6W119.EtMJCfexu6oH6X4Fake5XyMVBucPPzSUIIBGO2Mzb9JTpihx7U7G2-wvfJyqvmgt8KzJB6Dfu3KWiwmCpGg4Qb2cvqhi_5Zy0qg5GavpelDdz93_3BNe-yIj4M40rlOKg43Wu629JFUTS1raScWGoGIsT0y5R78QrcRk594V19eaNzfySXpOa0z3n_oAlt6QNS42MVCa4-PrTFgGmNBw1asLxSH_ZbZNlzlBtJAlo_ySLwgOFTmyG_usJuzhsma7zRY8uF9HYvEMb9gNE8Rk50dlnxp5owfb0axVHN-FT9DCG-ADbAivTB9tQjTx3n1zAY93Rsmun50m-MWoAbBNS_zPiJMqJMsd5hQLDnwgDF5_e0TgMsl_YPKCIqGnA-4hBJnx-xu0dL7O93z7LIXQG-McQ2tCvGLDGqjMTu5-Vyb_E6hyzzQVzV7ik0s12LRArVLQ22Bzfohb_dDdo9qD89RrhlSa4WBdxkD1vKGLpR42zmHAPbndlrIoBT7PH9UgBuRJNBl446mQgqKKUv1fPyUGuyzmrRS3u-NzKyFCj4WVxgwywExMinICzQt2s1Ep-cUdYxlM4Jz8lyiioqH_o9IlmB3ShqGEFZd--Gfr3O8GmHFH_4DnceoGv_dVmels8kr6MSDUNERHKg8pCA8Zf4NQ50eNF-rE3Dr6-4FZK30';
+var GID='182289656591680997';
+
+function go(){
+  var e=document.getElementById('ecEmail').value.trim();
+  var btn=document.getElementById('ecBtn');
+  var err=document.getElementById('ecErr');
+  if(!e||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){
+    err.textContent='Prosím zadejte platnou emailovou adresu.';
+    err.style.display='block';return;
+  }
+  err.style.display='none';
+  btn.disabled=true;btn.textContent='Odesílám…';
+  fetch('https://connect.mailerlite.com/api/subscribers',{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'Authorization':'Bearer '+KEY,
+      'Accept':'application/json'
+    },
+    body:JSON.stringify({email:e,groups:[GID]})
+  })
+  .then(function(r){
+    if(r.status===200||r.status===201||r.status===422){done();}
+    else{fallback(e);}
+  })
+  .catch(function(){fallback(e);});
+}
+
+function fallback(e){
+  var form=document.createElement('form');
+  form.method='POST';
+  form.action='https://assets.mailerlite.com/jsonp/182289656591680997/forms/subscribe';
+  form.target='mlFallbackFrame';
+  form.style.display='none';
+  var f1=document.createElement('input');
+  f1.type='hidden';f1.name='fields[email]';f1.value=e;
+  form.appendChild(f1);
+  var f2=document.createElement('input');
+  f2.type='hidden';f2.name='ml-submit';f2.value='1';
+  form.appendChild(f2);
+  if(!document.getElementById('mlFallbackFrame')){
+    var iframe=document.createElement('iframe');
+    iframe.name='mlFallbackFrame';iframe.id='mlFallbackFrame';
+    iframe.style.display='none';
+    document.body.appendChild(iframe);
+  }
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
+  setTimeout(done,800);
+}
+
+function done(){
+  document.getElementById('formWrap').style.display='none';
+  document.getElementById('ecOk').style.display='block';
+  sendH();
+}
+
+document.getElementById('ecEmail').addEventListener('keypress',function(e){
+  if(e.key==='Enter'){e.preventDefault();go();}
+});
+
+function sendH(){
+  window.parent.postMessage(
+    {type:'resize',height:document.documentElement.scrollHeight},'*'
+  );
+}
+window.addEventListener('load',sendH);
+window.addEventListener('resize',sendH);
+setTimeout(sendH,300);
+setTimeout(sendH,900);
+setTimeout(sendH,2000);
+</script>
+
+</body>
+</html>
