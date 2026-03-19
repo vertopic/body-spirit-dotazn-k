@@ -5,97 +5,284 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-  html,body{background:transparent;height:auto;overflow-x:hidden;}
-  .ec-inner{position:relative;z-index:1;padding:3.5rem 3rem 3rem;max-width:100%;}
-  .ec-badge{display:inline-block;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;margin-bottom:1.1rem;padding-bottom:4px;}
-  .ec-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(2rem,4.5vw,3rem);font-weight:500;line-height:1.18;margin-bottom:1rem;letter-spacing:.01em;}
-  .ec-title em{font-style:italic;font-weight:400;}
-  .ec-sub{font-family:'Raleway',sans-serif;font-size:1.05rem;font-weight:400;line-height:1.75;margin-bottom:1.8rem;}
-  .ec-sub strong{font-weight:600;}
-  .ec-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:2rem;}
-  .ec-item{display:flex;align-items:flex-start;gap:.65rem;font-family:'Raleway',sans-serif;font-size:.97rem;font-weight:400;line-height:1.5;}
-  .ec-dot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;margin-top:2px;}
-  .ec-form{display:flex;flex-direction:row;gap:.8rem;margin-bottom:.8rem;flex-wrap:nowrap;align-items:center;}
-  .ec-input{flex:1;min-width:0;height:54px;border-radius:4px;font-family:'Raleway',sans-serif;font-size:1rem;font-weight:400;padding:0 1.4rem;outline:none;transition:border-color .2s,background .2s;-webkit-appearance:none;}
-  .ec-btn{height:54px;border:none;border-radius:4px;padding:0 2rem;font-family:'Raleway',sans-serif;font-size:.95rem;font-weight:600;letter-spacing:.05em;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:background .2s,transform .15s;-webkit-appearance:none;}
-  .ec-btn:active{transform:scale(.98);}
-  .ec-btn:disabled{opacity:.7;cursor:default;transform:none;}
-  .ec-gdpr{font-family:'Raleway',sans-serif;font-size:.78rem;font-weight:400;line-height:1.6;}
-  .ec-gdpr a{text-decoration:underline;}
-  .ec-error{display:none;font-family:'Raleway',sans-serif;font-size:.88rem;margin:.4rem 0;}
-  .ec-ok{display:none;text-align:center;padding:2.2rem 2rem;border-radius:4px;}
-  .ec-ok-icon{font-size:2.8rem;margin-bottom:.9rem;}
-  .ec-ok h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;font-weight:500;margin-bottom:.5rem;}
-  .ec-ok p{font-family:'Raleway',sans-serif;font-size:1rem;line-height:1.7;}
-  @media(max-width:600px){
-    .ec-inner{padding:2rem 1.4rem 1.8rem;}
-    .ec-grid{grid-template-columns:1fr;gap:.55rem;}
-    .ec-form{flex-direction:column;}
-    .ec-input{width:100%;font-size:16px;}
-    .ec-btn{width:100%;height:52px;}
-    .ec-title{font-size:1.9rem;}
-    .ec-sub{font-size:.97rem;}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: transparent; height: auto; overflow-x: hidden; }
+
+  :root {
+    --bs-gold:    #c8962e;
+    --bs-white:   #ffffff;
+    --bs-offwhite:rgba(255,255,255,0.85);
+    --bs-muted:   rgba(255,255,255,0.5);
   }
-  /* VARIANTA 1 – průhledný overlay přes fotku */
-  .ec-wrap{width:100%;margin:0;padding:0;background:rgba(15,40,25,0.72);backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px);}
-  .ec-badge{color:#c8962e;border-bottom:1px solid rgba(200,150,46,0.45);}
-  .ec-title{color:#fff;}
-  .ec-title em{color:#c8962e;}
-  .ec-sub{color:rgba(255,255,255,0.88);}
-  .ec-sub strong{color:#fff;}
-  .ec-item{color:rgba(255,255,255,0.88);}
-  .ec-item strong{color:#fff;}
-  .ec-dot{background:rgba(200,150,46,0.25);border:1px solid rgba(200,150,46,0.45);}
-  .ec-input{border:1.5px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.1);color:#fff;}
-  .ec-input::placeholder{color:rgba(255,255,255,0.45);}
-  .ec-input:focus{border-color:#c8962e;background:rgba(255,255,255,0.15);}
-  .ec-btn{background:#c8962e;color:#fff;}
-  .ec-btn:hover{background:#a87820;transform:translateY(-1px);}
-  .ec-gdpr{color:rgba(255,255,255,0.5);}
-  .ec-gdpr a{color:rgba(200,150,46,0.75);}
-  .ec-error{color:#ffb4b4;}
-  .ec-ok{background:rgba(255,255,255,0.1);border:1px solid rgba(200,150,46,0.3);}
-  .ec-ok h3{color:#fff;}
-  .ec-ok p{color:rgba(255,255,255,0.88);}
+
+  .ec-wrap {
+    width: 100%;
+    margin: 0; padding: 0;
+    background: linear-gradient(160deg, #0d0d0d 0%, #181818 100%);
+    position: relative; overflow: hidden;
+  }
+  .ec-wrap::before {
+    content: ''; position: absolute;
+    top: -40px; left: -40px;
+    width: 220px; height: 220px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,150,46,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .ec-wrap::after {
+    content: ''; position: absolute;
+    bottom: -60px; right: -40px;
+    width: 280px; height: 280px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,150,46,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .ec-inner {
+    position: relative; z-index: 1;
+    padding: 2rem 2rem 1.8rem;
+    max-width: 100%;
+  }
+
+  .ec-badge {
+    display: inline-block;
+    color: var(--bs-gold);
+    font-family: 'Raleway', sans-serif;
+    font-size: 13px; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase;
+    margin-bottom: .7rem;
+    border-bottom: 1px solid rgba(200,150,46,0.4);
+    padding-bottom: 4px;
+  }
+
+  .ec-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+    font-weight: 500; color: var(--bs-white);
+    line-height: 1.18; margin-bottom: .6rem;
+    letter-spacing: .01em;
+  }
+  .ec-title em { font-style: italic; color: var(--bs-gold); font-weight: 400; }
+
+  .ec-sub {
+    font-family: 'Raleway', sans-serif;
+    color: var(--bs-offwhite); font-size: 1.1rem;
+    font-weight: 400; line-height: 1.75;
+    margin-bottom: 1.2rem; max-width: 680px;
+  }
+  .ec-sub strong { color: var(--bs-white); font-weight: 600; }
+
+  .ec-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: .6rem; margin-bottom: 1.3rem;
+  }
+  .ec-item {
+    display: flex; align-items: flex-start;
+    gap: .7rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem; font-weight: 400;
+    color: var(--bs-offwhite); line-height: 1.5;
+  }
+  .ec-item strong { color: var(--bs-white); font-weight: 600; }
+  .ec-dot {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(200,150,46,0.15);
+    border: 1px solid rgba(200,150,46,0.35);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 13px; margin-top: 1px;
+  }
+
+  .ec-form {
+    display: flex; flex-direction: row;
+    gap: .75rem; margin-bottom: .6rem;
+    flex-wrap: nowrap; align-items: center;
+  }
+  .ec-input {
+    flex: 1; min-width: 0; height: 56px;
+    border: 1.5px solid rgba(255,255,255,.2);
+    border-radius: 4px;
+    background: rgba(255,255,255,.07);
+    color: var(--bs-white);
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.05rem; font-weight: 400;
+    padding: 0 1.4rem; outline: none;
+    transition: border-color .2s, background .2s;
+    -webkit-appearance: none;
+  }
+  .ec-input::placeholder { color: rgba(255,255,255,.38); }
+  .ec-input:focus { border-color: var(--bs-gold); background: rgba(255,255,255,.1); }
+
+  .ec-btn {
+    height: 56px; background: var(--bs-gold);
+    color: var(--bs-white); border: none; border-radius: 4px;
+    padding: 0 2.2rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem; font-weight: 600; letter-spacing: .05em;
+    cursor: pointer; white-space: nowrap; flex-shrink: 0;
+    transition: background .2s, transform .15s;
+    -webkit-appearance: none;
+  }
+  .ec-btn:hover  { background: #a87820; transform: translateY(-1px); }
+  .ec-btn:active { transform: scale(.98); }
+  .ec-btn:disabled { opacity: .7; cursor: default; transform: none; }
+
+  .ec-gdpr {
+    font-family: 'Raleway', sans-serif;
+    font-size: .8rem; font-weight: 400;
+    color: var(--bs-muted); line-height: 1.6;
+  }
+  .ec-gdpr a { color: rgba(200,150,46,.7); text-decoration: underline; }
+
+  .ec-error {
+    display: none; color: #ffb4b4;
+    font-family: 'Raleway', sans-serif; font-size: .9rem; margin: .4rem 0;
+  }
+
+  .ec-ok {
+    display: none; text-align: center;
+    padding: 1.8rem 1.5rem;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(200,150,46,.25); border-radius: 4px;
+  }
+  .ec-ok-icon { font-size: 2.5rem; margin-bottom: .6rem; }
+  .ec-ok h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 2.2rem; font-weight: 500;
+    color: var(--bs-white); margin-bottom: .6rem;
+  }
+  .ec-ok p {
+    font-family: 'Raleway', sans-serif;
+    color: var(--bs-offwhite); font-size: 1.05rem; line-height: 1.7;
+  }
+
+  @media (max-width: 600px) {
+    .ec-inner { padding: 1.6rem 1.2rem 1.5rem; }
+    .ec-grid  { grid-template-columns: 1fr; gap: .6rem; }
+    .ec-form  { flex-direction: column; }
+    .ec-input { width: 100%; font-size: 16px; }
+    .ec-btn   { width: 100%; height: 54px; }
+    .ec-title { font-size: 2rem; }
+    .ec-sub   { font-size: 1rem; }
+  }
 </style>
 </head>
 <body>
+
 <div class="ec-wrap">
   <div class="ec-inner">
+
     <p class="ec-badge">Zdarma · Okamžité stažení</p>
-    <h2 class="ec-title">Dva průvodce, které změní<br><em>váš přístup ke zdraví</em></h2>
-    <p class="ec-sub">Zadejte email a okamžitě dostanete <strong>Průvodce perimenopauzou</strong> a <strong>Biohacking průvodce</strong> — vědecky podložené materiály z pohledu funkční medicíny.</p>
+
+    <h2 class="ec-title">
+      Dva průvodce, které změní<br>
+      <em>váš přístup ke zdraví</em>
+    </h2>
+
+    <p class="ec-sub">
+      Zadejte email a okamžitě dostanete <strong>Průvodce perimenopauzou</strong>
+      a <strong>Biohacking průvodce</strong> — vědecky podložené materiály
+      z pohledu funkční medicíny a naturopatie.
+    </p>
+
     <div class="ec-grid">
-      <div class="ec-item"><div class="ec-dot">📖</div><div><strong>Průvodce perimenopauzou</strong><br>hormony, příznaky, protokoly</div></div>
-      <div class="ec-item"><div class="ec-dot">⚡</div><div><strong>Biohacking průvodce</strong><br>spánek, mikrobiom, longevity</div></div>
-      <div class="ec-item"><div class="ec-dot">✓</div><div>Okamžité zaslání na email</div></div>
-      <div class="ec-item"><div class="ec-dot">✓</div><div>Odhlásit se můžete kdykoliv</div></div>
+      <div class="ec-item">
+        <div class="ec-dot">📖</div>
+        <div><strong>Průvodce perimenopauzou</strong><br>hormony, příznaky, přirozené protokoly</div>
+      </div>
+      <div class="ec-item">
+        <div class="ec-dot">⚡</div>
+        <div><strong>Biohacking průvodce</strong><br>spánek, mikrobiom, energie, longevity</div>
+      </div>
+      <div class="ec-item">
+        <div class="ec-dot">✓</div>
+        <div>Okamžité zaslání na email</div>
+      </div>
+      <div class="ec-item">
+        <div class="ec-dot">✓</div>
+        <div>Odhlásit se můžete kdykoliv</div>
+      </div>
     </div>
+
     <div id="formWrap">
       <div class="ec-form">
-        <input type="email" id="ecEmail" class="ec-input" placeholder="váš@email.cz" autocomplete="email" inputmode="email"/>
-        <button class="ec-btn" id="ecBtn" onclick="go()">Chci průvodce zdarma →</button>
+        <input type="email" id="ecEmail" class="ec-input"
+               placeholder="váš@email.cz" autocomplete="email" inputmode="email" />
+        <button class="ec-btn" id="ecBtn" onclick="go()">
+          Chci průvodce zdarma →
+        </button>
       </div>
       <p class="ec-error" id="ecErr"></p>
-      <p class="ec-gdpr">Odesláním souhlasíte se zpracováním e-mailové adresy pro zasílání průvodců a newsletteru body-spirit.cz. Odhlásit se můžete kdykoliv jedním kliknutím. <a href="/gdpr" target="_blank">Zásady ochrany soukromí.</a></p>
+      <p class="ec-gdpr">
+        Odesláním souhlasíte se zpracováním e-mailové adresy pro zasílání průvodců
+        a newsletteru body-spirit.cz. Odhlásit se můžete kdykoliv jedním kliknutím.
+        <a href="/gdpr" target="_blank">Zásady ochrany soukromí.</a>
+      </p>
     </div>
+
     <div class="ec-ok" id="ecOk">
       <div class="ec-ok-icon">✉️</div>
       <h3>Průvodce jsou na cestě!</h3>
-      <p>Zkontrolujte svůj inbox — oba průvodce vám přijdou do pár minut.<br>Pokud email nevidíte, zkontrolujte složku <strong>Spam</strong> nebo <strong>Hromadné</strong>.</p>
+      <p>Zkontrolujte svůj inbox — oba průvodce vám přijdou do pár minut.<br>
+         Pokud email nevidíte, zkontrolujte složku <strong>Spam</strong> nebo <strong>Hromadné</strong>.</p>
     </div>
+
   </div>
 </div>
 <script>
-  var KEY='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiMWY4ZWE2MGE5YWYyM2M5NTU2ZGNmOWRmZWU0ODExNDA0MTQ0YzkyYjU3YmQ0MmU2ODlmMTRmYjYyN2E5ZDJhMzMyNDUwYjJjZDMzNjAxMDciLCJpYXQiOjE3NzM4NDUwODkuOTE1NDY4LCJuYmYiOjE3NzM4NDUwODkuOTE1NDcsImV4cCI6NDkyOTUxODY4OS45MTEzOSwic3ViIjoiMjIxNjc3OCIsInNjb3BlcyI6W119.EtMJCfexu6oH6X4Fake5XyMVBucPPzSUIIBGO2Mzb9JTpihx7U7G2-wvfJyqvmgt8KzJB6Dfu3KWiwmCpGg4Qb2cvqhi_5Zy0qg5GavpelDdz93_3BNe-yIj4M40rlOKg43Wu629JFUTS1raScWGoGIsT0y5R78QrcRk594V19eaNzfySXpOa0z3n_oAlt6QNS42MVCa4-PrTFgGmNBw1asLxSH_ZbZNlzlBtJAlo_ySLwgOFTmyG_usJuzhsma7zRY8uF9HYvEMb9gNE8Rk50dlnxp5owfb0axVHN-FT9DCG-ADbAivTB9tQjTx3n1zAY93Rsmun50m-MWoAbBNS_zPiJMqJMsd5hQLDnwgDF5_e0TgMsl_YPKCIqGnA-4hBJnx-xu0dL7O93z7LIXQG-McQ2tCvGLDGqjMTu5-Vyb_E6hyzzQVzV7ik0s12LRArVLQ22Bzfohb_dDdo9qD89RrhlSa4WBdxkD1vKGLpR42zmHAPbndlrIoBT7PH9UgBuRJNBl446mQgqKKUv1fPyUGuyzmrRS3u-NzKyFCj4WVxgwywExMinICzQt2s1Ep-cUdYxlM4Jz8lyiioqH_o9IlmB3ShqGEFZd--Gfr3O8GmHFH_4DnceoGv_dVmels8kr6MSDUNERHKg8pCA8Zf4NQ50eNF-rE3Dr6-4FZK30';
-  var GID='182289656591680997';
-  function go(){var e=document.getElementById('ecEmail').value.trim();var btn=document.getElementById('ecBtn');var err=document.getElementById('ecErr');if(!e||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){err.textContent='Prosím zadejte platnou emailovou adresu.';err.style.display='block';return;}err.style.display='none';btn.disabled=true;btn.textContent='Odesílám…';fetch('https://connect.mailerlite.com/api/subscribers',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+KEY,'Accept':'application/json'},body:JSON.stringify({email:e,groups:[GID]})}).then(function(r){if(r.status===200||r.status===201){done();}else{r.json().then(function(d){err.textContent=d.message||'Chyba. Zkuste to prosím znovu.';err.style.display='block';btn.disabled=false;btn.textContent='Chci průvodce zdarma →';});}}).catch(function(){done();});}
-  function done(){document.getElementById('formWrap').style.display='none';document.getElementById('ecOk').style.display='block';sendH();}
-  document.getElementById('ecEmail').addEventListener('keypress',function(e){if(e.key==='Enter'){e.preventDefault();go();}});
-  function sendH(){window.parent.postMessage({type:'resize',height:document.documentElement.scrollHeight},'*');}
-  window.addEventListener('load',sendH);window.addEventListener('resize',sendH);
-  setTimeout(sendH,300);setTimeout(sendH,900);setTimeout(sendH,1800);
+  var KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiMWY4ZWE2MGE5YWYyM2M5NTU2ZGNmOWRmZWU0ODExNDA0MTQ0YzkyYjU3YmQ0MmU2ODlmMTRmYjYyN2E5ZDJhMzMyNDUwYjJjZDMzNjAxMDciLCJpYXQiOjE3NzM4NDUwODkuOTE1NDY4LCJuYmYiOjE3NzM4NDUwODkuOTE1NDcsImV4cCI6NDkyOTUxODY4OS45MTEzOSwic3ViIjoiMjIxNjc3OCIsInNjb3BlcyI6W119.EtMJCfexu6oH6X4Fake5XyMVBucPPzSUIIBGO2Mzb9JTpihx7U7G2-wvfJyqvmgt8KzJB6Dfu3KWiwmCpGg4Qb2cvqhi_5Zy0qg5GavpelDdz93_3BNe-yIj4M40rlOKg43Wu629JFUTS1raScWGoGIsT0y5R78QrcRk594V19eaNzfySXpOa0z3n_oAlt6QNS42MVCa4-PrTFgGmNBw1asLxSH_ZbZNlzlBtJAlo_ySLwgOFTmyG_usJuzhsma7zRY8uF9HYvEMb9gNE8Rk50dlnxp5owfb0axVHN-FT9DCG-ADbAivTB9tQjTx3n1zAY93Rsmun50m-MWoAbBNS_zPiJMqJMsd5hQLDnwgDF5_e0TgMsl_YPKCIqGnA-4hBJnx-xu0dL7O93z7LIXQG-McQ2tCvGLDGqjMTu5-Vyb_E6hyzzQVzV7ik0s12LRArVLQ22Bzfohb_dDdo9qD89RrhlSa4WBdxkD1vKGLpR42zmHAPbndlrIoBT7PH9UgBuRJNBl446mQgqKKUv1fPyUGuyzmrRS3u-NzKyFCj4WVxgwywExMinICzQt2s1Ep-cUdYxlM4Jz8lyiioqH_o9IlmB3ShqGEFZd--Gfr3O8GmHFH_4DnceoGv_dVmels8kr6MSDUNERHKg8pCA8Zf4NQ50eNF-rE3Dr6-4FZK30';
+  var GID = '182289656591680997';
+
+  function go() {
+    var email = document.getElementById('ecEmail').value.trim();
+    var btn   = document.getElementById('ecBtn');
+    var err   = document.getElementById('ecErr');
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      err.textContent = 'Prosím zadejte platnou emailovou adresu.';
+      err.style.display = 'block'; return;
+    }
+    err.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Odesílám…';
+    fetch('https://connect.mailerlite.com/api/subscribers', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + KEY,
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({ email: email, groups: [GID] })
+    })
+    .then(function(r) {
+      if (r.status === 200 || r.status === 201) { done(); }
+      else {
+        r.json().then(function(d) {
+          err.textContent = d.message || 'Chyba. Zkuste to prosím znovu.';
+          err.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'Chci průvodce zdarma →';
+        });
+      }
+    })
+    .catch(function() { done(); });
+  }
+
+  function done() {
+    document.getElementById('formWrap').style.display = 'none';
+    document.getElementById('ecOk').style.display = 'block';
+    sendH();
+  }
+
+  document.getElementById('ecEmail').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') { e.preventDefault(); go(); }
+  });
+
+  function sendH() {
+    var h = document.documentElement.scrollHeight;
+    window.parent.postMessage({ type: 'resize', height: h }, '*');
+  }
+  window.addEventListener('load', sendH);
+  window.addEventListener('resize', sendH);
+  setTimeout(sendH, 300);
+  setTimeout(sendH, 800);
+  setTimeout(sendH, 1600);
 </script>
 </body>
 </html>
